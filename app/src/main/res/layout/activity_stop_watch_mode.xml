@@ -1,0 +1,78 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="600dp"
+    android:layout_height="600dp"
+    android:background="#00000000"
+    android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="00:00:000"
+        android:id="@+id/stopWatchTimerText"
+        android:layout_gravity="center"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:id="@+id/startStopWatchButton"
+            android:onClick="startStopWatch"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:id="@+id/stopStopWatchButton"
+            android:onClick="stopStopWatch"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Reset"
+            android:id="@+id/resetStopWatchButton"
+            android:onClick="resetStopWatch"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Rap"
+            android:id="@+id/rapStopWatchButton"
+            android:onClick="rapStopWatch"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+     </LinearLayout>
+
+    <ListView android:id="@+id/rapStopWatchList"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="close"
+        android:id="@+id/closeStopWatchButton"
+        android:onClick="closeStopWatch"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

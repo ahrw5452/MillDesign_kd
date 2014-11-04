@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="600dp"
+    android:layout_height="600dp"
+    android:orientation="vertical"
+    android:background="#00000000"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/timerView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="00:00:00"
+        android:textSize="50dp"
+        android:background="#00000000"
+        android:textIsSelectable="false" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:background="#00000000"
+        android:layout_weight="1"
+        android:clickable="true">
+        <Button
+            android:id="@+id/startTimerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="start" />
+
+        <Button
+            android:id="@+id/stopTimerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="stop" />
+
+        <Button
+            android:id="@+id/resetTimerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="reset" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#00000000"
+        android:clickable="true"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/hoursNumberPickerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="hours"
+            android:layout_marginLeft="100dp"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/minutesNumberPickerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="minutes"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/secondsNumberPickerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="seconds"
+            android:layout_marginRight="100dp"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:background="#00000000"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:weightSum="3">
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:layout_marginLeft="100dp"
+            android:id="@+id/hoursNumberPicker"/>
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/minutesNumberPicker"/>
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:layout_marginRight="100dp"
+            android:id="@+id/secondsNumberPicker"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/closeTimerButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="CLOSE" />
+
+</LinearLayout>

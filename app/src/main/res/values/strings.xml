@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">milldesign_kd</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_menu_mode">menuMode</string>
+    <string name="title_activity_timer_mode">timerMode</string>
+    <string name="title_activity_alarm_mode">alarmMode</string>
+    <string name="title_activity_stop_watch_mode">stopWatchMode</string>
+    <string name="drawer_open">おーぷん</string>
+    <string name="drawer_close">くろーず</string>
+    <string name="title_activity_text_view">textView</string>
+    <string name="title_activity_rowdata_text_view">rowdataTextView</string>
+    <string name="title_activity_alarm">alarm</string>
+
+</resources>

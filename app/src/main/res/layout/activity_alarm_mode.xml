@@ -1,0 +1,14 @@
+<FrameLayout
+    android:layout_width="500dp"
+    android:layout_height="500dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="アラームモード"
+        android:id="@+id/textView"
+        android:layout_gravity="center"
+        android:gravity="center_vertical|center_horizontal" />
+</FrameLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ws.milldesign_kd" >
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="21" />
+
+    <application
+        android:allowBackup="true"
+        android:theme="@style/MyAppTheme">
+
+        <activity android:name=".watchView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".menuMode"
+            android:label="@string/title_activity_menu_mode" >
+        </activity>
+
+        <receiver android:name=".MyAlarmNotificationReceiver" >
+            <intent-filter>
+                <action android:name="MyAlarmAction" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".MyAlarmService" />
+
+        <activity
+            android:name=".alarm"
+            android:label="@string/title_activity_alarm" >
+        </activity>
+
+    </application>
+</manifest>

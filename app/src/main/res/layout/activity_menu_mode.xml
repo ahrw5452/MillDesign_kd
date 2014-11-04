@@ -1,0 +1,57 @@
+<TableLayout
+    android:layout_width="700dp"
+    android:layout_height="700dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#0000ff">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Calendar"
+            android:layout_weight="1"
+            android:onClick="calendarView"
+            android:id="@+id/calendar" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Date"
+            android:layout_weight="1"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Weather"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Temperature"
+            android:layout_weight="1"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Humidity"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Setting"
+            android:layout_weight="1"/>
+    </TableRow>
+
+</TableLayout>
