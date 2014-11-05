@@ -86,6 +86,7 @@ public class timerDialogFragment extends DialogFragment {
         setTimerButtonState(true, false, false,true);
     }
     private void closeTimer(){
+        getActivity().getActionBar().hide();
         super.onDismiss(getDialog());//このダイアログを終了
     }
     private void setTimerButtonState(boolean start,boolean stop,boolean reset,boolean picker){

@@ -1,6 +1,5 @@
 <resources>
     <style name="MyAppTheme" parent="android:Theme.Holo.Light">
-        <item name="android:windowTranslucentNavigation">false</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowActionBarOverlay">false</item>
     </style>
 </resources>

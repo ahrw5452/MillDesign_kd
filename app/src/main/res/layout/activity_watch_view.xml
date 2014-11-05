@@ -4,7 +4,7 @@
     android:layout_height="700dp"
     android:layout_gravity="center">
 
-    <FrameLayout
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,7 +19,7 @@
                 android:hand_minute="@drawable/pin_min"
                 android:hand_hour="@drawable/pin_hour"
                 android:id="@+id/analogClock"/>
-    </FrameLayout>
+    </LinearLayout>
 
     <!--　ナビゲーションドロワー用メニュー　-->
     <LinearLayout
@@ -56,10 +56,5 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Humidity" />
-        <Button
-            android:id="@+id/Close"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Close" />
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

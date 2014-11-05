@@ -1,6 +1,7 @@
 package ws.milldesign_kd;
 
 
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.graphics.Color;
@@ -15,6 +16,8 @@ import android.widget.Button;
 public class alarmDialogFragment extends DialogFragment {
 
     private Button closeAlarmButton;
+    private watchView w;
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class alarmDialogFragment extends DialogFragment {
     }
 
     private void closeAlarm(){
+        getActivity().getActionBar().hide();
         super.onDismiss(getDialog());
     }
 }

@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -169,17 +168,18 @@ public class stopWatchDialogFragment extends DialogFragment {
         rapTime.add(rap);
         /*ArrayAdapterのコンストラクタの第一引数にはActivityを渡す*/
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.activity_rowdata_text_view,rapTime);
-        Log.i("log", "adapter→" + adapter);
         rapStopWatchList.setAdapter(adapter);
     }
     /*closeボタン押下*/
     private void closeStopWatch() {
         stopStopWatch();
         resetStopWatch();
+        getActivity().getActionBar().hide();
         super.onDismiss(getDialog());//このダイアログを終了
     }
     /*何もしないでcloseボタン押下*/
     private void closeStopWatchInstantly(){
+        getActivity().getActionBar().hide();
         super.onDismiss(getDialog());//このダイアログを終了
     }
     /*ストップウォッチのボタンの有効無効設定*/
