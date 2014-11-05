@@ -31,25 +31,35 @@
         android:background="#333" >
 
         <Button
-            android:id="@+id/Menu"
+            android:id="@+id/Calendar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Menu" />
+            android:text="Calendar" />
         <Button
-            android:id="@+id/Timer"
+            android:id="@+id/Date"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Timer" />
+            android:text="Date" />
 
         <Button
-            android:id="@+id/Alarm"
+            android:id="@+id/Weather"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Alarm" />
+            android:text="Weather" />
         <Button
-            android:id="@+id/StopWatch"
+            android:id="@+id/Temperature"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="StopWatch" />
+            android:text="Temperature" />
+        <Button
+            android:id="@+id/Humidity"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Humidity" />
+        <Button
+            android:id="@+id/Close"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Close" />
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

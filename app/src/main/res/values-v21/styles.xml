@@ -1,11 +1,6 @@
 <resources>
     <style name="MyAppTheme" parent="android:Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/MyActionbarStyle</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowTranslucentStatus">true</item>
-    </style>
-
-    <style name="MyActionbarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

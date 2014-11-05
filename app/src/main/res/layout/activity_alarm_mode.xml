@@ -11,4 +11,13 @@
         android:id="@+id/textView"
         android:layout_gravity="center"
         android:gravity="center_vertical|center_horizontal" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="close"
+        android:id="@+id/closeAlarmButton"
+        android:onClick="closeAlarm"
+        android:layout_gravity="center|bottom"/>
+
 </FrameLayout>
