@@ -16,8 +16,6 @@ import android.widget.Button;
 public class alarmDialogFragment extends DialogFragment {
 
     private Button closeAlarmButton;
-    private watchView w;
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -37,10 +35,14 @@ public class alarmDialogFragment extends DialogFragment {
             }
         });
 
+
         return dialog;
     }
 
     private void closeAlarm(){
+        MyAlarmManager mam = new MyAlarmManager(getActivity());
+        mam.addAlarm();
+
         super.onDismiss(getDialog());
     }
 }
