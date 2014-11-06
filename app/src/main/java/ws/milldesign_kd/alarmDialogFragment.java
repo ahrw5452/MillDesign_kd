@@ -7,15 +7,21 @@ import android.app.DialogFragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
-/*アラームモード*/
+import java.util.Calendar;
+
+/*アラーム設定ダイアログ*/
 public class alarmDialogFragment extends DialogFragment {
 
-    private Button closeAlarmButton;
+    private Button setAlarmButton,closeAlarmButton;
+    private TimePicker alarmTimePicker;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -26,23 +32,30 @@ public class alarmDialogFragment extends DialogFragment {
         dialog.setContentView(R.layout.activity_alarm_mode);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        closeAlarmButton = (Button)dialog.findViewById(R.id.closeAlarmButton);
+        alarmTimePicker = (TimePicker)dialog.findViewById(R.id.alarmTimePicker);
+        alarmTimePicker.setIs24HourView(true);//24時間表示の方がいいかな
 
-        closeAlarmButton.setOnClickListener(new View.OnClickListener() {
+        //setAlarmボタンのリスナ
+        dialog.findViewById(R.id.setAlarmButton).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                MyAlarmManager mam = new MyAlarmManager(getActivity());
+                mam.addAlarm(alarmTimePicker.getCurrentHour(),alarmTimePicker.getCurrentMinute());
+                Toast.makeText(getActivity(), "通知セット完了!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //closeAlarmボタンのリスナ
+        dialog.findViewById(R.id.closeAlarmButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 closeAlarm();
             }
         });
-
-
         return dialog;
     }
 
+    //アラーム設定ダイアログを閉じる
     private void closeAlarm(){
-        MyAlarmManager mam = new MyAlarmManager(getActivity());
-        mam.addAlarm();
-
         super.onDismiss(getDialog());
     }
 }

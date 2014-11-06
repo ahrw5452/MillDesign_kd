@@ -36,11 +36,7 @@ public class stopWatchDialogFragment extends DialogFragment {
     private List<String> rapTime = new ArrayList<String>();
     private TextView stopWatchText;//ビューのタイマー部分のテキスト
     private ListView rapStopWatchList;
-    private Button startStopWatchButton,
-            stopStopWatchButton,
-            resetStopWatchButton,
-            rapStopWatchButton,
-            closeStopWatchButton;
+    private Button startStopWatchButton,stopStopWatchButton,resetStopWatchButton,rapStopWatchButton,closeStopWatchButton;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -62,8 +58,8 @@ public class stopWatchDialogFragment extends DialogFragment {
         stopStopWatchButton = (Button) dialog.findViewById(R.id.stopStopWatchButton);
         resetStopWatchButton = (Button) dialog.findViewById(R.id.resetStopWatchButton);
         rapStopWatchButton = (Button) dialog.findViewById(R.id.rapStopWatchButton);
-        closeStopWatchButton = (Button)dialog.findViewById(R.id.closeStopWatchButton);
         rapStopWatchList = (ListView) dialog.findViewById(R.id.rapStopWatchList);
+        closeStopWatchButton = (Button)dialog.findViewById(R.id.closeStopWatchButton);
 
         setStopWatchButtonState(true, false, false, false);//startButton以外を無効に
         /*startボタンのリスナ*/

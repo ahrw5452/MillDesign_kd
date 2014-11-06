@@ -3,14 +3,20 @@
     android:layout_height="500dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:layout_width="500dp"
-        android:layout_height="500dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="アラームモード"
-        android:id="@+id/textView"
-        android:layout_gravity="center"
-        android:gravity="center_vertical|center_horizontal" />
+
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/alarmTimePicker"
+        android:layout_gravity="center|center" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        android:id="@+id/setAlarmButton"
+        android:layout_gravity="center|bottom" />
 
     <Button
         android:layout_width="100dp"
@@ -18,6 +24,6 @@
         android:text="close"
         android:id="@+id/closeAlarmButton"
         android:onClick="closeAlarm"
-        android:layout_gravity="center|bottom"/>
+        android:layout_gravity="right|bottom"/>
 
 </FrameLayout>
