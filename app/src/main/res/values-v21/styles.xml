@@ -1,5 +1,5 @@
 <resources>
-    <style name="MyAppTheme" parent="android:Theme.Holo.Light">
-        <item name="android:windowActionBarOverlay">false</item>
+    <style name="MyAppTheme" parent="android:Theme.Holo">
+        <item name="android:windowActionBarOverlay">true</item>
     </style>
 </resources>

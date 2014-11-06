@@ -174,12 +174,10 @@ public class stopWatchDialogFragment extends DialogFragment {
     private void closeStopWatch() {
         stopStopWatch();
         resetStopWatch();
-        getActivity().getActionBar().hide();
         super.onDismiss(getDialog());//このダイアログを終了
     }
     /*何もしないでcloseボタン押下*/
     private void closeStopWatchInstantly(){
-        getActivity().getActionBar().hide();
         super.onDismiss(getDialog());//このダイアログを終了
     }
     /*ストップウォッチのボタンの有効無効設定*/

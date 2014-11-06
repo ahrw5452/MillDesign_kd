@@ -13,5 +13,6 @@
     <string name="title_activity_text_view">textView</string>
     <string name="title_activity_rowdata_text_view">rowdataTextView</string>
     <string name="title_activity_alarm">alarm</string>
+    <string name="title_activity_my">MyActivity</string>
 
 </resources>

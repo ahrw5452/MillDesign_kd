@@ -23,7 +23,10 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_view);
-        Utils.actionBarUpsideDown(this);//アクションバーを画面下部に表示
+
+
+        //Utils.actionBarUpsideDown(this);//アクションバーを画面下部に表示
+
 
         /*DrawerLatoutの設定*/
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -43,10 +46,11 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
                 R.string.drawer_close){
             @Override
             public void onDrawerClosed(View drawView){
-                actionBar.hide();
+
             }
             @Override
             public void onDrawerOpened(View drawView){
+
             }
             @Override
             public void onDrawerStateChanged(int newState) {
@@ -75,6 +79,7 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
     /*ActionBarのメニューを押下した時の処理*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        actionBar.hide();
         if(mDrawerToggle.onOptionsItemSelected(item)){
             return true;
         }else if(item.getItemId()==0){

@@ -41,7 +41,6 @@ public class alarmDialogFragment extends DialogFragment {
     }
 
     private void closeAlarm(){
-        getActivity().getActionBar().hide();
         super.onDismiss(getDialog());
     }
 }
