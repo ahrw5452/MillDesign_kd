@@ -5,17 +5,13 @@ import android.app.DialogFragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import java.util.Calendar;
 
 /*アラーム設定ダイアログ*/
 public class alarmDialogFragment extends DialogFragment {
@@ -64,7 +60,7 @@ public class alarmDialogFragment extends DialogFragment {
                     */
                     setHour  = alarmTimePicker.getCurrentHour();
                     setMinute = alarmTimePicker.getCurrentMinute();
-                    new MyAlarmManager(getActivity()).noRepertAddAlarm(setHour,setMinute);
+                    new AlarmManagerMine(getActivity()).noRepertAddAlarm(setHour, setMinute);
                     Toast.makeText(getActivity(), "繰り返し無しで通知セット完了!", Toast.LENGTH_SHORT).show();
                 }
             }

@@ -5,14 +5,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
-public class MyAlarmManager {
+public class AlarmManagerMine {
     Context context;
     AlarmManager alarmManager;
     private PendingIntent mAlarmSender;
 
-    public MyAlarmManager(Context context){
+    public AlarmManagerMine(Context context){
         this.context = context;
         alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
     }
@@ -60,7 +59,7 @@ public class MyAlarmManager {
                         //第二引数
                         alarmStartTime,
                         //第三引数
-                        PendingIntent.getService(context, -1, new Intent(context, MyAlarmService.class), PendingIntent.FLAG_UPDATE_CURRENT)
+                        PendingIntent.getService(context, -1, new Intent(context, AlarmServiceMine.class), PendingIntent.FLAG_UPDATE_CURRENT)
                         );
     }
 }

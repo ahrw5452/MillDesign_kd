@@ -18,12 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".MyAlarmNotificationReceiver" >
+        <receiver android:name=".AlarmNotificationReceiverMine" >
             <intent-filter>
                 <action android:name="MyAlarmAction" />
             </intent-filter>
         </receiver>
-        <service android:name=".MyAlarmService" />
+        <service android:name=".AlarmServiceMine" />
         <activity
             android:name=".AlarmNotificationActivity"
             android:label="@string/title_activity_alarm" >
