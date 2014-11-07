@@ -20,10 +20,12 @@
         </activity>
         <receiver android:name=".AlarmNotificationReceiverMine" >
             <intent-filter>
-                <action android:name="MyAlarmAction" />
+                <action android:name="AlarmActionMine" />
             </intent-filter>
         </receiver>
+
         <service android:name=".AlarmServiceMine" />
+
         <activity
             android:name=".AlarmNotificationActivity"
             android:label="@string/title_activity_alarm" >
