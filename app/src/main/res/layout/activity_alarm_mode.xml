@@ -3,13 +3,19 @@
     android:layout_height="500dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-
     <TimePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/alarmTimePicker"
-        android:layout_gravity="center|center" />
+        android:layout_gravity="center|top" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="繰り返し"
+        android:id="@+id/alarmRepeatSwitch"
+        android:layout_gravity="center|center_vertical"
+        android:textSize="10dp" />
 
     <Button
         android:layout_width="100dp"
@@ -25,5 +31,4 @@
         android:id="@+id/closeAlarmButton"
         android:onClick="closeAlarm"
         android:layout_gravity="right|bottom"/>
-
 </FrameLayout>

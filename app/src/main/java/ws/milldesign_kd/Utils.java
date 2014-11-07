@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
+
     private static final String TAG = Utils.class.getSimpleName();
 
     public final static void actionBarUpsideDown(Activity activity) {
@@ -22,43 +23,19 @@ public class Utils {
         if (firstChild instanceof ViewGroup) {//firstChildがViewGroupで実装されていれば。
 
             ViewGroup viewGroup = (ViewGroup) firstChild;//なんでこれやってんの
-            Log.i("Log","いれた。ビューグループの子の数は→"+viewGroup.getChildCount());
-            Log.i("Log","初期値。ビューグループレイアウトモード、子じゃなくて。→"+viewGroup.getLayoutParams());
-            Log.i("Log","初期値。ビューグループの0子→"+viewGroup.getChildAt(0));
-            Log.i("Log","初期値。ビューグループの1子→"+viewGroup.getChildAt(1));
-            Log.i("Log","初期値。ビューグループの2子→"+viewGroup.getChildAt(2));
-
             List<View> views = findViewsWithClassName(root,
                     "com.android.internal.widget.ActionBarContainer");//ActionBarのビューをroot以下で探し出してlistに格納してる
 
             List<View> viewActionBarOverlayLayout = findViewsWithClassName(root,
                     "com.android.internal.widget.ActionBarOverlayLayout");
-            Log.i("びゅーあくしょんばーおーばーれいあうとのかず",""+viewActionBarOverlayLayout.size());
-
-
-            //viewGroup.removeViewAt(0);
-            //android.widget.FrameLayout
-
-
 
             if (!views.isEmpty()) {
                 for (View vv : views) {
                     viewGroup.removeView(vv);
-                    Log.i("Log","消し中！！。ビューグループのvvは→"+vv);
-                    Log.i("Log","消し中。ビューグループの子の数は→"+viewGroup.getChildCount());
-                    Log.i("Log","消し中。ビューグループの0子→"+viewGroup.getChildAt(0));
-                    Log.i("Log","消し中。ビューグループの1子→"+viewGroup.getChildAt(1));
-                    Log.i("Log","消し中。ビューグループの2子→"+viewGroup.getChildAt(2));
                 }
                 for (View vv : views) {
                     viewGroup.addView(vv);
-
-                    Log.i("Log","追加中！！。ビューグループのvvは→"+vv);
-                    Log.i("Log","追加中。ビューグループの子の数は→"+viewGroup.getChildCount());
-                    Log.i("Log","追加中。ビューグループの0子→"+viewGroup.getChildAt(0));
-                    Log.i("Log","追加中。ビューグループの1子→"+viewGroup.getChildAt(1));
-                    Log.i("Log","追加中。ビューグループの2子→"+viewGroup.getChildAt(2));
-                }
+     }
             }
         } else {
             Log.e(TAG, "first child is not ViewGroup.");
@@ -81,7 +58,6 @@ public class Utils {
             }
         }
     }
-
     /*Viewの階層構造をダンプするスニペット*/
     public static void dumpViewTree(View v, String padding){
         Log.d("だんぷ", padding + v.getClass().getName());
@@ -91,8 +67,5 @@ public class Utils {
                 dumpViewTree(g.getChildAt(i), padding+" ");
             }
         }
-    }
-    private Utils() {
-        // ignore
     }
 }

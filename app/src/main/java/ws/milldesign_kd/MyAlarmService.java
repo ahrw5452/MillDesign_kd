@@ -14,10 +14,10 @@ public class MyAlarmService extends Service {
 
     @Override
     public void onCreate() {
-        Log.v("MyAlarmServiceログ","Create");
+        Log.i("まいあらーむさーびすろぐ（おんくりえいとのなか）","時間だぜ！！");
         Thread thr = new Thread(null, mTask, "MyAlarmServiceThread");
         thr.start();
-        Log.v("MyAlarmServiceログ","スレッド開始");
+        Log.i("まいあらーむさーびすろぐ（おんくりえいとのなか）","スレッド開始");
     }
 
     /**
@@ -26,13 +26,12 @@ public class MyAlarmService extends Service {
     Runnable mTask = new Runnable() {
         public void run() {
             // ここでアラーム通知する前の処理など...
-
             Intent alarmBroadcast = new Intent();
             alarmBroadcast.setAction("MyAlarmAction");//独自のメッセージを送信します
             sendBroadcast(alarmBroadcast);
-            Log.v("MyAlarmServiceログ","通知画面起動メッセージを送った");
+            Log.i("まいあらーむさーびすろぐ(らんのなか)","通知画面起動メッセージを送った");
             MyAlarmService.this.stopSelf();//サービスを止める
-            Log.v("MyAlarmServiceログ","サービス停止");
+            Log.i("まいあらーむさーびすろぐ(らんのなか)","サービス停止");
         }
     };
 }
