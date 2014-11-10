@@ -6,6 +6,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+/*このクラスの司る処理
+* ユーザがセットした時間に処理を発動させる
+* (PendingIntentを設定する)
+* 必要な情報をサービスクラスに渡す
+*/
+
 public class AlarmManagerMine {
     Context context;
     AlarmManager alarmManager;
@@ -15,24 +21,20 @@ public class AlarmManagerMine {
         this.context = context;
         alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
     }
-
     //繰り返し無しでアラームをセットする場合
     public void noRepertAddAlarm(int setHour,int setMinute){
         //カレンダー型の変数が現在時刻を持っている状態
         Calendar startTime = Calendar.getInstance();
-
         //タイマーピッカーで選択した時間に書き換わる
         startTime.set(Calendar.HOUR_OF_DAY, setHour);
         startTime.set(Calendar.MINUTE, setMinute);
         startTime.set(Calendar.SECOND, 0);
-
         /*
         * CalendarクラスのgetTimeInMillisに関して。
         * タイマーピッカーで選択した時刻を、"1970年1月1日0時0分0秒からの経過時間"にする。
         * 単位はミリ秒
         */
         long alarmStartTime = startTime.getTimeInMillis();
-
         /*
         * アラームマネージャのset機能を解説。
         * まずこのsetは、任意の時間で実行する処理を登録

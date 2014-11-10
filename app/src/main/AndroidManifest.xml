@@ -15,10 +15,12 @@
         <activity android:name=".watchView" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".AlarmNotificationReceiverMine" >
+
+        <receiver android:name=".AlarmReceiverMine" >
             <intent-filter>
                 <action android:name="AlarmActionMine" />
             </intent-filter>
@@ -27,8 +29,12 @@
         <service android:name=".AlarmServiceMine" />
 
         <activity
-            android:name=".AlarmNotificationActivity"
-            android:label="@string/title_activity_alarm" >
+            android:name=".AlarmPostActivity">
+        </activity>
+        <activity
+            android:name=".AlarmPost"
+            android:label="@string/title_activity_alarm_post" >
         </activity>
     </application>
+
 </manifest>

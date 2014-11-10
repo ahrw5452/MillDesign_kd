@@ -14,5 +14,6 @@
     <string name="title_activity_rowdata_text_view">rowdataTextView</string>
     <string name="title_activity_alarm">alarm</string>
     <string name="title_activity_my">MyActivity</string>
+    <string name="title_activity_alarm_post">AlarmPost</string>
 
 </resources>
