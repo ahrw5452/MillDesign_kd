@@ -18,13 +18,16 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar actionBar;
-    private stopWatchDialogFragment sw;
+    private stopWatchDialogFragment swdf;
+    public static Utils utils;
+
     //初期化
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_view);
-        //Utils.actionBarUpsideDown(this);//アクションバーを画面下部に表示
+        utils = new Utils();
+
         //DrawerLatoutの設定
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -88,11 +91,15 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
             new timerDialogFragment().show(getFragmentManager(), "timer");
             return true;
         }else if(item.getItemId()==2){
-            //new alarmDialogFragment().show(getFragmentManager(), "alarm");
+            new alarmDialogFragment().show(getFragmentManager(), "alarm");
             return true;
         }else if(item.getItemId()==3){
-            sw = (stopWatchDialogFragment)new stopWatchDialogFragment();
-            sw.show(getFragmentManager(), "stopWatch");
+            if(swdf==null){
+                swdf = (stopWatchDialogFragment)new stopWatchDialogFragment();
+            }else{
+
+            }
+            swdf.show(getFragmentManager(), "stopWatch");
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -124,4 +131,8 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+
+
+
 }

@@ -10,6 +10,16 @@ import java.util.List;
 public class Utils {
 
     private static final String TAG = Utils.class.getSimpleName();
+    public static boolean startStopWatchButtonEnabled,stopStopWatchButtonEnabled,resetStopWatchButtonEnabled,rapStopWatchButtoEnabled = false;
+
+    //ストップウォッチの状態を預かる
+    public static void stopWatchButtonEnabledBank(boolean startStopWatchButton,boolean stopStopWatchButton,boolean resetStopWatchButton,boolean rapStopWatchButton){
+        startStopWatchButtonEnabled = startStopWatchButton;
+        stopStopWatchButtonEnabled = stopStopWatchButton;
+        resetStopWatchButtonEnabled = resetStopWatchButton;
+        rapStopWatchButtoEnabled = rapStopWatchButton;
+    }
+
 
     public final static void actionBarUpsideDown(Activity activity) {
 
