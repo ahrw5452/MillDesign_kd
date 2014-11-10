@@ -1,6 +1,7 @@
 package ws.milldesign_kd;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -17,6 +18,7 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar actionBar;
+    private stopWatchDialogFragment sw;
     //初期化
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         actionBar.hide();
+
         if(mDrawerToggle.onOptionsItemSelected(item)){
             findViewById(R.id.Calendar).setOnClickListener(this);
             findViewById(R.id.Date).setOnClickListener(this);
@@ -85,10 +88,11 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
             new timerDialogFragment().show(getFragmentManager(), "timer");
             return true;
         }else if(item.getItemId()==2){
-            new alarmDialogFragment().show(getFragmentManager(), "alarm");
+            //new alarmDialogFragment().show(getFragmentManager(), "alarm");
             return true;
         }else if(item.getItemId()==3){
-            new stopWatchDialogFragment().show(getFragmentManager(), "stopWatch");
+            sw = (stopWatchDialogFragment)new stopWatchDialogFragment();
+            sw.show(getFragmentManager(), "stopWatch");
             return true;
         }
         return super.onOptionsItemSelected(item);

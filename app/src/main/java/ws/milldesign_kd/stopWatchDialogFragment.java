@@ -49,6 +49,7 @@ public class stopWatchDialogFragment extends DialogFragment {
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         dialog.setContentView(R.layout.activity_stop_watch_mode);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
        /*
        * 各ボタンが押された処理の為stopWatchのビューの中のアイテムを取り出しておく
        * dialogのfindViewByIdを使うこと
@@ -61,7 +62,9 @@ public class stopWatchDialogFragment extends DialogFragment {
         rapStopWatchList = (ListView) dialog.findViewById(R.id.rapStopWatchList);
         closeStopWatchButton = (Button)dialog.findViewById(R.id.closeStopWatchButton);
 
-        setStopWatchButtonState(true, false, false, false);//startButton以外を無効に
+        //startButton以外を無効に
+        setStopWatchButtonState(true, false, false, false);
+
         /*startボタンのリスナ*/
         dialog.findViewById(R.id.startStopWatchButton).setOnClickListener(new View.OnClickListener() {
             @Override
