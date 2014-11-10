@@ -1,6 +1,5 @@
 package ws.milldesign_kd;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
@@ -21,9 +20,9 @@ public class AlarmPostActivity extends Activity implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //アラーム通知アクティビティ
         setContentView(R.layout.activity_alarm_post);
-        getActionBar().hide();
+
+        //getActionBar().hide();
 
         // スリープ状態から復帰する
         wakelock = ((PowerManager) getSystemService(Context.POWER_SERVICE))
@@ -37,13 +36,9 @@ public class AlarmPostActivity extends Activity implements View.OnClickListener{
         keylock.disableKeyguard();
 
         findViewById(R.id.closeAlarmPostButton).setOnClickListener(this);
-
-        Toast.makeText(this, "アラーム！", Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onClick(View v){
-
-        Log.i("ビューはどうなってる","vの中身"+v);
         this.finish();
     }
 
@@ -54,7 +49,6 @@ public class AlarmPostActivity extends Activity implements View.OnClickListener{
         /*if (mp == null)
             mp = MediaPlayer.create(this, R.raw.alarm);
         mp.start();*/
-        Log.i("ろぐ","あらーむ");
     }
 
     @Override
