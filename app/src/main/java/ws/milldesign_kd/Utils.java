@@ -12,8 +12,9 @@ import java.util.List;
 public class Utils {
 
     private static final String TAG = Utils.class.getSimpleName();
+
     public static String stopWatchTextCurrent;
-    public static boolean startStopWatchButtonEnabled,stopStopWatchButtonEnabled,resetStopWatchButtonEnabled,rapStopWatchButtoEnabled = false;
+    public static boolean startStopWatchButtonEnabled,stopStopWatchButtonEnabled,resetStopWatchButtonEnabled,rapStopWatchButtonEnabled = false;
     public static List<String> rapTimeCurrent = new ArrayList<String>();
 
     //ストップウォッチの状態を預かる
@@ -27,7 +28,7 @@ public class Utils {
         startStopWatchButtonEnabled = startStopWatchButton;
         stopStopWatchButtonEnabled = stopStopWatchButton;
         resetStopWatchButtonEnabled = resetStopWatchButton;
-        rapStopWatchButtoEnabled = rapStopWatchButton;
+        rapStopWatchButtonEnabled = rapStopWatchButton;
         rapTimeCurrent = rapTime;
     }
 

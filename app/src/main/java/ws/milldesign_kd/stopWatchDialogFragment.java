@@ -1,6 +1,5 @@
 package ws.milldesign_kd;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.graphics.Color;
@@ -8,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,7 +21,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//ストップウォッチモード
 public class stopWatchDialogFragment extends DialogFragment {
 
     private long startTime,stopTime,delta,rapIntervals = 0;
@@ -64,7 +61,7 @@ public class stopWatchDialogFragment extends DialogFragment {
             startStopWatchButton.setEnabled(utils.startStopWatchButtonEnabled);
             stopStopWatchButton.setEnabled(utils.stopStopWatchButtonEnabled);
             resetStopWatchButton.setEnabled(utils.resetStopWatchButtonEnabled);
-            rapStopWatchButton.setEnabled(utils.rapStopWatchButtoEnabled);
+            rapStopWatchButton.setEnabled(utils.rapStopWatchButtonEnabled);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.activity_rowdata_text_view,utils.rapTimeCurrent);
             rapStopWatchList.setAdapter(adapter);
         }
@@ -72,30 +69,22 @@ public class stopWatchDialogFragment extends DialogFragment {
         //startボタンのリスナ
         dialog.findViewById(R.id.startStopWatchButton).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startStopWatch();
-            }
+            public void onClick(View v) {startStopWatch();}
         });
         //stopボタンのリスナ
         dialog.findViewById(R.id.stopStopWatchButton).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                stopStopWatch();
-            }
+            public void onClick(View v) {stopStopWatch();}
         });
         //resetボタンのリスナ
         dialog.findViewById(R.id.resetStopWatchButton).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                resetStopWatch();
-            }
+            public void onClick(View v) {resetStopWatch();}
         });
         //rapボタンのリスナ
         dialog.findViewById(R.id.rapStopWatchButton).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                rapStopWatch();
-            }
+            public void onClick(View v) {rapStopWatch();}
         });
         //closeボタンのリスナ
         dialog.findViewById(R.id.closeStopWatchButton).setOnClickListener(new View.OnClickListener(){
@@ -196,9 +185,7 @@ public class stopWatchDialogFragment extends DialogFragment {
     }
 
     //何もしないでcloseボタン押下
-    private void closeStopWatchInstantly(){
-        super.onDismiss(getDialog());
-    }
+    private void closeStopWatchInstantly(){super.onDismiss(getDialog());}
 
     //ストップウォッチのボタンの有効無効設定
     private void setStopWatchButtonState(boolean start, boolean stop, boolean reset, boolean rap) {
