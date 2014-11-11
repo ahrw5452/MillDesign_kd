@@ -12,7 +12,7 @@
     <application
         android:allowBackup="true"
         android:theme="@style/MyAppTheme" >
-        <activity android:name=".WatchViewTEST" >
+        <activity android:name=".WatchView" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -14,7 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 //テスト
-public class AlarmDialogFragmentTEST extends DialogFragment {
+public class AlarmDialogFragment extends DialogFragment {
     private TimePicker alarmTimePicker;
     private Switch alarmRepeatSwitch;
     private int setHour,setMinute = 0;

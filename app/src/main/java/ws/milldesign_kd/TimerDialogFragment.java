@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /*タイマーモード*/
-public class TimerDialogFragmentTEST extends DialogFragment {
+public class TimerDialogFragment extends DialogFragment {
     private TextView timer;
     private Button startTimerButton,stopTimerButton,resetTimerButton,closeTimerButton;
     private NumberPicker hNumberPicker,mNumberPicker,sNumberPicker;
