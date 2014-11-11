@@ -12,11 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-public class WatchView extends FragmentActivity implements View.OnClickListener{
+public class WatchViewTEST extends FragmentActivity implements View.OnClickListener{
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar actionBar;
-    private StopWatchDialogFragment swdf;
+    private StopWatchDialogFragmentTEST swdf;
     public static Utils utils;
 
     //初期化
@@ -86,14 +86,14 @@ public class WatchView extends FragmentActivity implements View.OnClickListener{
             Toast.makeText(this,"設定ダイアログが開く",Toast.LENGTH_LONG);
             return true;
         }else if(item.getItemId()==1){
-            new TimerDialogFragment().show(getFragmentManager(), "timer");
+            new TimerDialogFragmentTEST().show(getFragmentManager(), "timer");
             return true;
         }else if(item.getItemId()==2){
-            new AlarmDialogFragment().show(getFragmentManager(), "alarm");
+            new AlarmDialogFragmentTEST().show(getFragmentManager(), "alarm");
             return true;
         }else if(item.getItemId()==3){
             if(swdf==null){
-                swdf = (StopWatchDialogFragment)new StopWatchDialogFragment();
+                swdf = (StopWatchDialogFragmentTEST)new StopWatchDialogFragmentTEST();
             }else{
 
             }
