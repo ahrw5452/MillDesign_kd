@@ -65,6 +65,8 @@ public class stopWatchDialogFragment extends DialogFragment {
             stopStopWatchButton.setEnabled(utils.stopStopWatchButtonEnabled);
             resetStopWatchButton.setEnabled(utils.resetStopWatchButtonEnabled);
             rapStopWatchButton.setEnabled(utils.rapStopWatchButtoEnabled);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.activity_rowdata_text_view,utils.rapTimeCurrent);
+            rapStopWatchList.setAdapter(adapter);
         }
 
         //startボタンのリスナ
@@ -169,7 +171,7 @@ public class stopWatchDialogFragment extends DialogFragment {
         SimpleDateFormat sdfrap = new SimpleDateFormat("mm:ss.SSS");
         rap = sdfrap.format(new Date(SystemClock.elapsedRealtime() - startTime - delta - rapIntervals));
         rapIntervals += SystemClock.elapsedRealtime() - startTime - delta - rapIntervals;
-        rapTime.add(rap);
+        rapTime.add(0,rap);
         //ArrayAdapterのコンストラクタの第一引数にはActivityを渡す
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.activity_rowdata_text_view,rapTime);
         rapStopWatchList.setAdapter(adapter);
@@ -181,12 +183,14 @@ public class stopWatchDialogFragment extends DialogFragment {
         * StopWatchの状態を預ける
         * 現在のタイム(runが裏で走っていれば瞬殺で書き換わりstop状態なら止めた時間で残る)
         * 各ボタンの有効無効状態
+        * rapのタイム
         */
         utils.stopWatchEnabledBank(result,
                                    startStopWatchButton.isEnabled(),
                                    stopStopWatchButton.isEnabled(),
                                    resetStopWatchButton.isEnabled(),
-                                   rapStopWatchButton.isEnabled());
+                                   rapStopWatchButton.isEnabled(),
+                                   rapTime);
         //ダイアログを隠す
         getDialog().hide();
     }
