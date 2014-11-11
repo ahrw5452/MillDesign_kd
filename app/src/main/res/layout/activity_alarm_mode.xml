@@ -7,14 +7,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/alarmTimePicker"
-        android:layout_gravity="center|top" />
+        android:layout_gravity="left|top" />
 
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="繰り返し"
         android:id="@+id/alarmRepeatSwitch"
-        android:layout_gravity="center|center_vertical"
+        android:layout_gravity="left|center_vertical"
         android:textSize="10dp" />
 
     <Button
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Set"
         android:id="@+id/setAlarmButton"
-        android:layout_gravity="center|bottom" />
+        android:layout_gravity="left|bottom" />
 
     <Button
         android:layout_width="100dp"
@@ -30,5 +30,16 @@
         android:text="close"
         android:id="@+id/closeAlarmButton"
         android:onClick="closeAlarm"
-        android:layout_gravity="right|bottom"/>
+        android:layout_gravity="center_horizontal|bottom"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="200dp"
+        android:layout_height="fill_parent"
+        android:layout_gravity="right|center_vertical"
+        android:background="#0000ff">
+
+
+
+        </LinearLayout>
 </FrameLayout>

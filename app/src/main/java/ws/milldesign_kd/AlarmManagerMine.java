@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 /*このクラスの司る処理
 * ユーザがセットした時間に処理を発動させる
@@ -21,20 +22,9 @@ public class AlarmManagerMine {
         this.context = context;
         alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
     }
+
     //繰り返し無しでアラームをセットする場合
-    public void noRepertAddAlarm(int setHour,int setMinute){
-        //カレンダー型の変数が現在時刻を持っている状態
-        Calendar startTime = Calendar.getInstance();
-        //タイマーピッカーで選択した時間に書き換わる
-        startTime.set(Calendar.HOUR_OF_DAY, setHour);
-        startTime.set(Calendar.MINUTE, setMinute);
-        startTime.set(Calendar.SECOND, 0);
-        /*
-        * CalendarクラスのgetTimeInMillisに関して。
-        * タイマーピッカーで選択した時刻を、"1970年1月1日0時0分0秒からの経過時間"にする。
-        * 単位はミリ秒
-        */
-        long alarmStartTime = startTime.getTimeInMillis();
+    public void noRepertAddAlarm(long alarmSetTime){
         /*
         * アラームマネージャのset機能を解説。
         * まずこのsetは、任意の時間で実行する処理を登録
@@ -55,13 +45,8 @@ public class AlarmManagerMine {
         *           第四引数は上書きの設定のようなので。
         *           今回のように複数のアラームをセットしたい時には気を付けて設定する。
         */
-        alarmManager.set(
-                        //第一引数
-                        AlarmManager.RTC_WAKEUP,
-                        //第二引数
-                        alarmStartTime,
-                        //第三引数
-                        PendingIntent.getService(context, -1, new Intent(context, AlarmServiceMine.class), PendingIntent.FLAG_UPDATE_CURRENT)
-                        );
+        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                        alarmSetTime,
+                        PendingIntent.getService(context, -1, new Intent(context, AlarmServiceMine.class), PendingIntent.FLAG_UPDATE_CURRENT));
     }
 }

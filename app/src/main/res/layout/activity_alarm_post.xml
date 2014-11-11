@@ -13,13 +13,14 @@
             android:layout_height="400dp"
             android:gravity="center|center"
             android:layout_gravity="center|center"
-            android:textColor="#0000ff"
+            android:textColor="#ff0000"
             android:textSize="60dp" />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Close"
+            android:layout_width="400dp"
+            android:layout_height="100dp"
+            android:text="はい"
             android:id="@+id/closeAlarmPostButton"
-            android:layout_gravity="center|bottom"/>
+            android:layout_gravity="center|bottom"
+            android:textSize="40dp"/>
 </FrameLayout>
 
