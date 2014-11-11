@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class stopWatchDialogFragment extends DialogFragment {
+public class StopWatchDialogFragment extends DialogFragment {
 
     private long startTime,stopTime,delta,rapIntervals = 0;
     private String result,rap = "";

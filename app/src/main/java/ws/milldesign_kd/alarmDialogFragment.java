@@ -13,8 +13,7 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-/*アラーム設定ダイアログ*/
-public class alarmDialogFragment extends DialogFragment {
+public class AlarmDialogFragment extends DialogFragment {
 
     private TimePicker alarmTimePicker;
     private Switch alarmRepeatSwitch;

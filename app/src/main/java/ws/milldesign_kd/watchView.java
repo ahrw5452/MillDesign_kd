@@ -1,24 +1,22 @@
 package ws.milldesign_kd;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-public class watchView extends FragmentActivity implements View.OnClickListener{
+public class WatchView extends FragmentActivity implements View.OnClickListener{
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar actionBar;
-    private stopWatchDialogFragment swdf;
+    private StopWatchDialogFragment swdf;
     public static Utils utils;
 
     //初期化
@@ -62,11 +60,11 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
         actionItemTimer.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         actionItemTimer.setIcon(R.drawable.ic_launcher);
 
-        MenuItem actionItemAlarm = menu.add(Menu.NONE, 2, Menu.NONE, "Timer");
+        MenuItem actionItemAlarm = menu.add(Menu.NONE, 2, Menu.NONE, "Alarm");
         actionItemAlarm.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         actionItemAlarm.setIcon(R.drawable.ic_launcher);
 
-        MenuItem actionItemStopWatch = menu.add(Menu.NONE, 3, Menu.NONE, "Timer");
+        MenuItem actionItemStopWatch = menu.add(Menu.NONE, 3, Menu.NONE, "StopWatch");
         actionItemStopWatch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         actionItemStopWatch.setIcon(R.drawable.ic_launcher);
 
@@ -88,14 +86,14 @@ public class watchView extends FragmentActivity implements View.OnClickListener{
             Toast.makeText(this,"設定ダイアログが開く",Toast.LENGTH_LONG);
             return true;
         }else if(item.getItemId()==1){
-            new timerDialogFragment().show(getFragmentManager(), "timer");
+            new TimerDialogFragment().show(getFragmentManager(), "timer");
             return true;
         }else if(item.getItemId()==2){
-            new alarmDialogFragment().show(getFragmentManager(), "alarm");
+            new AlarmDialogFragment().show(getFragmentManager(), "alarm");
             return true;
         }else if(item.getItemId()==3){
             if(swdf==null){
-                swdf = (stopWatchDialogFragment)new stopWatchDialogFragment();
+                swdf = (StopWatchDialogFragment)new StopWatchDialogFragment();
             }else{
 
             }
