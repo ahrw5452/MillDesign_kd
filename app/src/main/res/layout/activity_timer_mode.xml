@@ -127,6 +127,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:text="close" />
+        android:text="close"
+        android:background="#00000000"/>
 
 </LinearLayout>
