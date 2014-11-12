@@ -8,20 +8,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_weight="2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/alarmSetListText">
         </TextView>
 
+    <!--
         <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/alarmSetListSwitch"
-        android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/alarmSetListSwitch"
+            android:layout_gravity="center"
         />
+        -->
 
-    </LinearLayout>
+    <ToggleButton
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/toggleButton"
+        android:background="#00000000"/>
+
+</LinearLayout>
 
 

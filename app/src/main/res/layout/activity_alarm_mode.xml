@@ -2,7 +2,6 @@
     android:orientation="horizontal"
     android:layout_width="500dp"
     android:layout_height="500dp"
-    android:background="#00000000"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -16,7 +15,6 @@
             android:layout_weight="4"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-
             android:id="@+id/alarmTimePicker"
             android:layout_gravity="center" />
 

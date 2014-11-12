@@ -24,11 +24,15 @@ public class AlarmDialogFragment extends DialogFragment {
 
     private boolean Repeat = false;
     private Calendar setTime;
-    private List<String> alarmSetTimes =  new ArrayList<String>();
     private TimePicker alarmTimePicker;
     private Switch alarmRepeatSwitch;
     private CheckBox sunCheck,monCheck,tueCheck,wedCheck,thuCheck,friCheck,satCheck;
     private ListView alarmSetList;
+    private List<String> alarmSetTimesBeforeSorting = new ArrayList<String>();
+    private List<String> alarmSetTimesAfterSorting = new ArrayList<String>();
+
+    //とりあえず
+    private List<String> alarmSetTimesBank = new ArrayList<String>();
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -51,21 +55,12 @@ public class AlarmDialogFragment extends DialogFragment {
         satCheck = (CheckBox)dialog.findViewById(R.id.saturday);
         alarmSetList = (ListView)dialog.findViewById(R.id.alarmSetList);
 
-        /*
-        * 繰り返しのON/OFF
-        * ONなら曜日設定
-        * OFFならTimePickerに設定した時間が次に来た時に処理を走らせる
-        */
+        //繰り返しのON/OFFスイッチリスナー
         alarmRepeatSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Repeat = isChecked;
-                //繰り返しONにした時
-                if(isChecked){
-                    dayOfTheWeekChoice();
-                }else{//繰り返しOFFにした時
-                    notDayOfTheWeekChoice();
-                }
+                checkBoxSetEnabled(isChecked);
+                if(isChecked){dayOfTheWeekChoice();}
             }
         });
 
@@ -87,45 +82,56 @@ public class AlarmDialogFragment extends DialogFragment {
     private void setAlarm(){
         //まずはタイムピッカーでセットされた値をsetTimeにする
         setTime = Utils.alarmSetTime(alarmTimePicker.getCurrentHour(),alarmTimePicker.getCurrentMinute());
-
-        //繰り返しがONなら、繰り返しがOFFならsetTimeをアラームマネージャに渡す
-        if(Repeat){
+        if(Repeat){//繰り返しがONなら、
             Toast.makeText(getActivity(), "繰り返しだよ曜日指定してね", Toast.LENGTH_SHORT).show();
-        }else{
+        }else{//繰り返しがOFFならsetTimeをアラームマネージャに渡す
             new AlarmManagerMine(getActivity()).noRepertAddAlarm(setTime.getTimeInMillis());
         };
 
         Log.i("セットされた時間","→"+setTime.getTime());
-        //アラームの値を表示する
-        alarmSetTimes.add(setTime.getTime().toString());
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.activity_rowdata_text_view,alarmSetTimes);
-        alarmSetList.setAdapter(adapter);
+
+        /*
+        * Setされたアラームの時間を右側のリスト領域に表示
+        * String型リスト"alarmSetTimes"にタイムピッカーで選択した時間を追加し
+        * そのリストを渡してカスタムAdapterを生成し、右カラムにセット
+        * */
+
+        //置いておいたリストに今回の要素を追加(一発目はただ追加)
+        alarmSetTimesBank.add(alarmTimePicker.getCurrentHour()+":"+alarmTimePicker.getCurrentMinute());
+
+        //並び替え前のバージョンに格納
+        alarmSetTimesBeforeSorting = alarmSetTimesBank;
+
+        //並び替えして新バージョンにする
+        alarmSetTimesAfterSorting = Utils.sortingAlarmSetList(alarmSetTimesBeforeSorting);
+
+        //右カラムのリストを置いとく
+        alarmSetTimesBank = alarmSetTimesAfterSorting;
+
+
+        //並び替えたリストを右カラムにセットする
+        AlarmSetListAdapter asla = new AlarmSetListAdapter(getActivity(),alarmSetTimesAfterSorting);
+        alarmSetList.setAdapter(asla);
     }
 
     //closeAlarmボタン押下
-    private void closeAlarm(){
-        super.onDismiss(getDialog());
-    }
+    private void closeAlarm(){super.onDismiss(getDialog());}
 
-    //繰り返し有り
+    //繰り返しスイッチON
     private void dayOfTheWeekChoice(){
-        sunCheck.setEnabled(true);
-        monCheck.setEnabled(true);
-        tueCheck.setEnabled(true);
-        wedCheck.setEnabled(true);
-        thuCheck.setEnabled(true);
-        friCheck.setEnabled(true);
-        satCheck.setEnabled(true);
+
+
     }
 
-    //繰り返し無し
-    private void notDayOfTheWeekChoice(){
-        sunCheck.setEnabled(false);
-        monCheck.setEnabled(false);
-        tueCheck.setEnabled(false);
-        wedCheck.setEnabled(false);
-        thuCheck.setEnabled(false);
-        friCheck.setEnabled(false);
-        satCheck.setEnabled(false);
+    //繰り返しスイッチの状態
+    private void checkBoxSetEnabled(boolean Enabled){
+        Repeat = Enabled;
+        sunCheck.setEnabled(Enabled);
+        monCheck.setEnabled(Enabled);
+        tueCheck.setEnabled(Enabled);
+        wedCheck.setEnabled(Enabled);
+        thuCheck.setEnabled(Enabled);
+        friCheck.setEnabled(Enabled);
+        satCheck.setEnabled(Enabled);
     }
 }

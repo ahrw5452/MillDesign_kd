@@ -23,6 +23,21 @@ public class AlarmManagerMine {
         alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
     }
 
+    //繰り返し有りでアラームをセットする場合
+    public void RepertAddAlarm(long alarmSetTime){
+
+
+        String uniqueParam = Long.toString(alarmSetTime) ;
+        Intent intent = new Intent(context, AlarmServiceMine.class);
+
+        //ユニークなインテントであることを示す(これをしないとセットする度アラームが上書きされてしまう)
+        intent.setType(uniqueParam);
+
+        mAlarmSender = PendingIntent.getService(context, -1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,alarmSetTime,mAlarmSender);
+    }
+
     //繰り返し無しでアラームをセットする場合
     public void noRepertAddAlarm(long alarmSetTime){
 
