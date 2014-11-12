@@ -9,21 +9,26 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.NumberPicker;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AlarmDialogFragment extends DialogFragment {
-    private TimePicker alarmTimePicker;
-    private NumberPicker alarmHoursNumberPicker,alarmMinutesNumberPicker;
-    private Switch alarmRepeatSwitch;
+
     private boolean Repeat = false;
+    private Calendar setTime;
+    private List<String> alarmSetTimes =  new ArrayList<String>();
+    private TimePicker alarmTimePicker;
+    private Switch alarmRepeatSwitch;
     private CheckBox sunCheck,monCheck,tueCheck,wedCheck,thuCheck,friCheck,satCheck;
+    private ListView alarmSetList;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,33 +39,23 @@ public class AlarmDialogFragment extends DialogFragment {
         dialog.setContentView(R.layout.activity_alarm_mode);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        //alarmTimePicker = (TimePicker)dialog.findViewById(R.id.alarmTimePicker);
-        //alarmTimePicker.setIs24HourView(true);
-
-        alarmHoursNumberPicker = (NumberPicker)dialog.findViewById(R.id.alarmHoursNumberPicker);
-        alarmHoursNumberPicker.setMinValue(00);
-        alarmHoursNumberPicker.setMaxValue(23);
-        alarmMinutesNumberPicker = (NumberPicker)dialog.findViewById(R.id.alarmMinutesNumberPicker);
-        alarmMinutesNumberPicker.setMaxValue(59);
-        alarmMinutesNumberPicker.setMinValue(00);
-
-
-
-
-        sunCheck = (CheckBox)dialog.findViewById(R.id.Sunday);
-        monCheck = (CheckBox)dialog.findViewById(R.id.Monday);
-        tueCheck = (CheckBox)dialog.findViewById(R.id.Tuesday);
-        wedCheck = (CheckBox)dialog.findViewById(R.id.Wednesday);
-        thuCheck = (CheckBox)dialog.findViewById(R.id.Thursday);
-        friCheck = (CheckBox)dialog.findViewById(R.id.Friday);
-        satCheck = (CheckBox)dialog.findViewById(R.id.Saturday);
+        //Viewの各ウィジェットを取得
+        alarmTimePicker = (TimePicker)dialog.findViewById(R.id.alarmTimePicker);
+        alarmRepeatSwitch = (Switch)dialog.findViewById(R.id.alarmRepeatSwitch);
+        sunCheck = (CheckBox)dialog.findViewById(R.id.sunday);
+        monCheck = (CheckBox)dialog.findViewById(R.id.monday);
+        tueCheck = (CheckBox)dialog.findViewById(R.id.tuesday);
+        wedCheck = (CheckBox)dialog.findViewById(R.id.wednesday);
+        thuCheck = (CheckBox)dialog.findViewById(R.id.thursday);
+        friCheck = (CheckBox)dialog.findViewById(R.id.friday);
+        satCheck = (CheckBox)dialog.findViewById(R.id.saturday);
+        alarmSetList = (ListView)dialog.findViewById(R.id.alarmSetList);
 
         /*
         * 繰り返しのON/OFF
         * ONなら曜日設定
         * OFFならTimePickerに設定した時間が次に来た時に処理を走らせる
         */
-        alarmRepeatSwitch = (Switch)dialog.findViewById(R.id.alarmRepeatSwitch);
         alarmRepeatSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -71,7 +66,6 @@ public class AlarmDialogFragment extends DialogFragment {
                 }else{//繰り返しOFFにした時
                     notDayOfTheWeekChoice();
                 }
-
             }
         });
 
@@ -89,76 +83,49 @@ public class AlarmDialogFragment extends DialogFragment {
         return dialog;
     }
 
-    //曜日選択
-    private void dayOfTheWeekChoice(){
-        sunCheck.setEnabled(true);
-        sunCheck.setBackgroundColor(00000000);
-        monCheck.setEnabled(true);
-        monCheck.setBackgroundColor(00000000);
-        tueCheck.setEnabled(true);
-        tueCheck.setBackgroundColor(00000000);
-        wedCheck.setEnabled(true);
-        wedCheck.setBackgroundColor(00000000);
-        thuCheck.setEnabled(true);
-        thuCheck.setBackgroundColor(00000000);
-        friCheck.setEnabled(true);
-        friCheck.setBackgroundColor(00000000);
-        satCheck.setEnabled(true);
-        satCheck.setBackgroundColor(00000000);
-    }
-    private void notDayOfTheWeekChoice(){
-        sunCheck.setEnabled(false);
-        sunCheck.setBackgroundColor(77000000);
-        monCheck.setEnabled(false);
-        monCheck.setBackgroundColor(77000000);
-        tueCheck.setEnabled(false);
-        tueCheck.setBackgroundColor(77000000);
-        wedCheck.setEnabled(false);
-        wedCheck.setBackgroundColor(77000000);
-        thuCheck.setEnabled(false);
-        thuCheck.setBackgroundColor(77000000);
-        friCheck.setEnabled(false);
-        friCheck.setBackgroundColor(77000000);
-        satCheck.setEnabled(false);
-        satCheck.setBackgroundColor(77000000);
-    }
-
-
     //setAlarmボタン押下
     private void setAlarm(){
-        /*
-        * 繰り返しがONなら、
-        * 繰り返しがOFFなら、SETボタンを押した瞬間にアラームマネージャに発動する時間を渡す
-        *
-        * */
+        //まずはタイムピッカーでセットされた値をsetTimeにする
+        setTime = Utils.alarmSetTime(alarmTimePicker.getCurrentHour(),alarmTimePicker.getCurrentMinute());
+
+        //繰り返しがONなら、繰り返しがOFFならsetTimeをアラームマネージャに渡す
         if(Repeat){
             Toast.makeText(getActivity(), "繰り返しだよ曜日指定してね", Toast.LENGTH_SHORT).show();
         }else{
-            //Setボタンを押した瞬間の時刻をカレンダー型の変数に格納(2つ)
-            Calendar currentTime = Calendar.getInstance();
-            Calendar setTime = Calendar.getInstance();
-            //setTimeの方はタイマーピッカーで選択した時間に書き換わる
-
-            //setTime.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-            //setTime.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
-            setTime.set(Calendar.HOUR_OF_DAY, alarmHoursNumberPicker.getValue());
-            setTime.set(Calendar.MINUTE, alarmMinutesNumberPicker.getValue());
-
-            setTime.set(Calendar.SECOND, 0);
-            //currentTime(現在時刻)が、setTime(ユーザーにセットされた時刻)より先に行ってたらsetTimeを1日進める
-            if(currentTime.getTimeInMillis() > setTime.getTimeInMillis()){
-                setTime.add(Calendar.HOUR_OF_DAY,+24);
-            };
-            //アラームマネージャにsetTimeを渡す
             new AlarmManagerMine(getActivity()).noRepertAddAlarm(setTime.getTimeInMillis());
-            Log.i("現在の時間","→"+currentTime.getTime());
-            Log.i("セットされた時間","→"+setTime.getTime());
-            Toast.makeText(getActivity(), "繰り返し無しで通知セット完了!→"+setTime.getTime(), Toast.LENGTH_SHORT).show();
-        }
+        };
+
+        Log.i("セットされた時間","→"+setTime.getTime());
+        //アラームの値を表示する
+        alarmSetTimes.add(setTime.getTime().toString());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.activity_rowdata_text_view,alarmSetTimes);
+        alarmSetList.setAdapter(adapter);
     }
 
     //closeAlarmボタン押下
     private void closeAlarm(){
         super.onDismiss(getDialog());
+    }
+
+    //繰り返し有り
+    private void dayOfTheWeekChoice(){
+        sunCheck.setEnabled(true);
+        monCheck.setEnabled(true);
+        tueCheck.setEnabled(true);
+        wedCheck.setEnabled(true);
+        thuCheck.setEnabled(true);
+        friCheck.setEnabled(true);
+        satCheck.setEnabled(true);
+    }
+
+    //繰り返し無し
+    private void notDayOfTheWeekChoice(){
+        sunCheck.setEnabled(false);
+        monCheck.setEnabled(false);
+        tueCheck.setEnabled(false);
+        wedCheck.setEnabled(false);
+        thuCheck.setEnabled(false);
+        friCheck.setEnabled(false);
+        satCheck.setEnabled(false);
     }
 }

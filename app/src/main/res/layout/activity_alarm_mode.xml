@@ -12,39 +12,6 @@
         android:layout_height="fill_parent"
         android:layout_gravity="right|center_vertical">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_weight="5"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="right|center_vertical">
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:id="@+id/alarmHoursNumberPicker"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text=":"
-                android:id="@+id/textView"
-                android:layout_gravity="center|center"
-                android:layout_weight="0.1" />
-
-            <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:id="@+id/alarmMinutesNumberPicker"/>
-
-        </LinearLayout>
-
-        <!--
         <TimePicker
             android:layout_weight="4"
             android:layout_width="fill_parent"
@@ -52,7 +19,6 @@
 
             android:id="@+id/alarmTimePicker"
             android:layout_gravity="center" />
-            -->
 
         <Switch
             android:layout_weight="1"
@@ -77,9 +43,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:text="Sunday"
-                android:id="@+id/Sunday"
+                android:id="@+id/sunday"
                 android:enabled="false"
-                android:background="#77000000"/>
+                android:background="#00000000"/>
             <CheckBox
                 android:layout_weight="1"
                 android:gravity="center"
@@ -87,9 +53,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:text="Monday"
-                android:id="@+id/Monday"
+                android:id="@+id/monday"
                 android:enabled="false"
-                android:background="#77000000"/>
+                android:background="#00000000"/>
             <CheckBox
                 android:layout_weight="1"
                 android:gravity="center"
@@ -97,9 +63,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:text="Tuesday"
-                android:id="@+id/Tuesday"
+                android:id="@+id/tuesday"
                 android:enabled="false"
-                android:background="#77000000"/>
+                android:background="#00000000"/>
             <CheckBox
                 android:layout_weight="1"
                 android:gravity="center"
@@ -107,9 +73,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:text="Wednesday"
-                android:id="@+id/Wednesday"
+                android:id="@+id/wednesday"
                 android:enabled="false"
-                android:background="#77000000"/>
+                android:background="#00000000"/>
             <CheckBox
                 android:layout_weight="1"
                 android:gravity="center"
@@ -117,9 +83,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:text="Thursday"
-                android:id="@+id/Thursday"
+                android:id="@+id/thursday"
                 android:enabled="false"
-                android:background="#77000000"/>
+                android:background="#00000000"/>
             <CheckBox
                 android:layout_weight="1"
                 android:gravity="center"
@@ -127,9 +93,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:text="Friday"
-                android:id="@+id/Friday"
+                android:id="@+id/friday"
                 android:enabled="false"
-                android:background="#77000000"/>
+                android:background="#00000000"/>
             <CheckBox
                 android:layout_weight="1"
                 android:gravity="center"
@@ -137,9 +103,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:text="Saturday"
-                android:id="@+id/Saturday"
+                android:id="@+id/saturday"
                 android:enabled="false"
-                android:background="#77000000"/>
+                android:background="#00000000"/>
         </LinearLayout>
 
         <Button
@@ -166,6 +132,12 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_gravity="center">
+
+            <ListView android:id="@+id/alarmSetList"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:gravity="center"/>
 
         </LinearLayout>
 

@@ -25,6 +25,15 @@ public class AlarmManagerMine {
 
     //繰り返し無しでアラームをセットする場合
     public void noRepertAddAlarm(long alarmSetTime){
+
+        String uniqueParam = Long.toString(alarmSetTime) ;
+        Intent intent = new Intent(context, AlarmServiceMine.class);
+
+        //ユニークなインテントであることを示す(これをしないとセットする度アラームが上書きされてしまう)
+        intent.setType(uniqueParam);
+
+        mAlarmSender = PendingIntent.getService(context, -1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         /*
         * アラームマネージャのset機能を解説。
         * まずこのsetは、任意の時間で実行する処理を登録
@@ -45,8 +54,6 @@ public class AlarmManagerMine {
         *           第四引数は上書きの設定のようなので。
         *           今回のように複数のアラームをセットしたい時には気を付けて設定する。
         */
-        alarmManager.set(AlarmManager.RTC_WAKEUP,
-                        alarmSetTime,
-                        PendingIntent.getService(context, -1, new Intent(context, AlarmServiceMine.class), PendingIntent.FLAG_UPDATE_CURRENT));
+        alarmManager.set(AlarmManager.RTC_WAKEUP,alarmSetTime,mAlarmSender);
     }
 }

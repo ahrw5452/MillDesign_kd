@@ -29,8 +29,12 @@
         <service android:name=".AlarmServiceMine" />
 
         <activity
-            android:theme="@android:style/Theme.Translucent"
-            android:name=".AlarmPostActivity">
+            android:name=".AlarmPostActivity"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
+        <activity
+            android:name=".AlarmSetList"
+            android:label="@string/title_activity_alarm_set_list" >
         </activity>
     </application>
 

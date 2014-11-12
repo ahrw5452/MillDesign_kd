@@ -7,22 +7,32 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Utils {
 
     private static final String TAG = Utils.class.getSimpleName();
 
-
-
-
     public static String stopWatchTextCurrent;
     public static boolean startStopWatchButtonEnabled,stopStopWatchButtonEnabled,resetStopWatchButtonEnabled,rapStopWatchButtonEnabled = false;
     public static List<String> rapTimeCurrent = new ArrayList<String>();
 
-
-
-
+    //アラームのセット画面でセットされた時間をUTC時刻にして返す
+    public static Calendar alarmSetTime(int currentHour,int currentMinute){
+        //Setボタンを押した瞬間の時刻をカレンダー型の変数に格納(2つ)
+        Calendar currentTime = Calendar.getInstance();
+        Calendar setTime = Calendar.getInstance();
+        //setTimeの方はタイマーピッカーで選択した時間に書き換わる
+        setTime.set(Calendar.HOUR_OF_DAY, currentHour);
+        setTime.set(Calendar.MINUTE, currentMinute);
+        setTime.set(Calendar.SECOND, 0);
+        //currentTime(現在時刻)が、setTime(ユーザーにセットされた時刻)より先に行ってたらsetTimeを1日進める
+        if(currentTime.getTimeInMillis() > setTime.getTimeInMillis()){
+            setTime.add(Calendar.HOUR_OF_DAY,+24);
+        };
+        return setTime;
+    }
 
     //ストップウォッチの状態を預かる
     public static void stopWatchEnabledBank(String stopWatchText,
