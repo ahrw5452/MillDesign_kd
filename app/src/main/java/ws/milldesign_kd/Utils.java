@@ -1,10 +1,11 @@
 package ws.milldesign_kd;
 
+import ws.milldesign_kd.Constants;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,100 +37,142 @@ public class Utils {
         return setTime;
     }
 
+    //setTimeの履歴を時間順に並び替えて返す
+    public static List<Calendar> sortAlarmSetList(List<Calendar> setTimeList){
+
+        List<Calendar> calList = new ArrayList<Calendar>();
+        int count = 0;
+
+        switch(setTimeList.size()){
+            case 1:
+                Log.i("Log", "要素が一つなので並び替えの必要無し,そのまま値を返します");
+                return setTimeList;
+            default:
+                //まず引数としてもらったsetTimeListは複数の日にまたがっているので、時間と分の情報だけを抜き出して、カレンダーリストに追加(年月日と秒は適当な値に統一)
+                for(Calendar setTime:setTimeList){
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(2000,Calendar.JANUARY,1,setTime.get(setTime.HOUR_OF_DAY),setTime.get(setTime.MINUTE),0);
+                    calList.add(cal);
+                }
+                //次に作業用カレンダーリストを並び替え
+                for(Calendar cal:calList){
+                    //同じものがあり、自分自身との比較じゃない時、ついかしたやつは消す
+                    if(
+                       calList.get(calList.size()-1).getTime().toString().equals(cal.getTime().toString())
+                       &&
+                       !(count==(calList.size()-1))
+                       ){
+                            calList.remove(calList.size()-1);
+                            break;
+                    }
+                    //引っ張り出した要素が、今回Setした要素より大きかったら
+                    if(calList.get(calList.size()-1).getTimeInMillis()<cal.getTimeInMillis()){
+                        //Setした値より大きい要素のいた位置にSetした値を追加しもとのやつは消す
+                        calList.add(count,calList.get(calList.size()-1));
+                        calList.remove(calList.size()-1);
+                        break;
+                    }
+                    count++;
+                }
+        }
+        return calList;
+    }
+
+    //カレンダー型の配列を、時と分のみの文字列型の配列に変換する
+    public static List<String> calendarChangeString(List<Calendar> setTimeListAfterSorting){
+        List<String> alarmSetTimeListString = new ArrayList<String>();
+
+
+        //とりあえず
+        alarmSetTimeListString.add("test");
+
+
+
+        return alarmSetTimeListString;
+    }
+
+
+    /*
     //アラームセット画面の右側の領域に保存するリストを、時間順に並び替えるメソッド
     public static List<String> sortingAlarmSetList(List<String> alarmSetTimesBeforeSorting) {
         //まず新規でフィールドインスタンスを作る(以前の参照を無くすため)
         alarmSetTimesAfterSortingInUtils = new ArrayList<String>();
-        //とりあえず並び替え前のリストを入れる
-        alarmSetTimesAfterSortingInUtils = alarmSetTimesBeforeSorting;
 
         //ソート前のデータの要素数を検証し、複数あれば並び替え処理を走らせる
         switch (alarmSetTimesBeforeSorting.size()) {
-            case 0:
-                Log.i("Log", "要素が無い・・・？");
-                return alarmSetTimesAfterSortingInUtils;
+
             case 1:
                 Log.i("Log", "要素が一つなので並び替えの必要無し,そのまま値を返します");
-                return alarmSetTimesAfterSortingInUtils;
-            default:
-                //まず一度、全ての時間をUTC時刻のミリ秒にする
-                for(String setTime:alarmSetTimesAfterSortingInUtils){
+                return alarmSetTimesBeforeSorting;
+            default://めいん--------------------------------------------------------------------------------------------------------------------------------
+
+                //ミリ秒に直した時間を入れる数値型の配列を用意
+                ArrayList<Long> millisVerSetTimes = new ArrayList<Long>();
+
+                //まず一度、受け取った全ての時間をUTC時刻のミリ秒にする
+                Log.i("既に複数ある時間データをミリ秒に直す", "for文1個目始まるよ");
+                for(String setTime:alarmSetTimesBeforeSorting){
                     String[] setTimeDivide = setTime.split(":");
-                    //とりあえず今の時間
+
+                    Log.i("ちょいと","今回"+setTimeDivide[0]+":::"+setTimeDivide[1]);
+
+
+
+
+                    //とりあえず今の時間をとった後そこに2000年1月1日のセットした時間にカレンダーを設定
                     Calendar cal = Calendar.getInstance();
-                    //2000年1月1日のセットした時間にカレンダーを設定
-                    cal.set(2000,Calendar.JANUARY,1,Integer.parseInt(setTimeDivide[0]),Integer.parseInt(setTimeDivide[1]));
-                    long Millis = cal.getTimeInMillis();
+                    cal.set(2000,Calendar.JANUARY,1,Integer.parseInt(setTimeDivide[0]),Integer.parseInt(setTimeDivide[1]),0);
 
+                    long millis = cal.getTimeInMillis()-Constants.MILLENNIUM;
+                    Calendar cal2 = Calendar.getInstance();
+                    cal2.setTimeInMillis(millis);
 
+                    //配列に追加
+                    millisVerSetTimes.add(millis);
+
+                    Log.i("カレンダーの値",""+cal.getTime());
+                    Log.i("今追加したミリ",""+millisVerSetTimes.get(millisVerSetTimes.size()-1));
+                    Log.i("ミリから戻したカレンダーの値",""+cal2.getTime());
                 }
+                Log.i("既に複数ある時間データをミリ秒に直した", "for文1個目終わり");
 
 
 
-                /*
-                //追加した要素を取り出して、同じものがあれば別にあれば0番目の要素を消す、無ければ適した位置に移動
-                String[] addAry = alarmSetTimesBeforeSorting.get(alarmSetTimesAfterSortingInUtils.size()-1).split(":");
+
                 int count = 0;
-                Log.i("Log", "for文始まるよ");
-                for (String alarmSetTime : alarmSetTimesBeforeSorting) {
-                    if (!(count>=alarmSetTimesAfterSortingInUtils.size()-1)) {//0番目以外のコレクションを取り出した際にそれを0番目と比較する
-                        Log.i("Log", "ここは複数回セットしてれば確実に通るよ。カウントの数字→"+count);
-                        //比較対象を時間と分に分ける
-                        String[] now = alarmSetTimesBeforeSorting.get(count).split(":");
-                        Log.i("Log", "比較対象の時"+now[0]);
-                        Log.i("Log", "今回セットした時間の時"+addAry[0]);
-
-                        //比較対象の時間と0番目の時間を比較し、0番目のほうが小さければ素通り、同じならば分の比較
-                        if (Integer.parseInt(now[0]) == Integer.parseInt(addAry[0])) {
-                            Log.i("Log", "今回セットされた時間の方が同じなので分を比較します");
-                            if (Integer.parseInt(now[1]) < Integer.parseInt(addAry[1])) {
-                                Log.i("Log", "今回セットされた時間の方が分がでかいです");
-                                //とりあえず今回セットしたのを消す
-                                alarmSetTimesAfterSortingInUtils.remove(alarmSetTimesAfterSortingInUtils.size()-1);
-                                //で、追加
-                                alarmSetTimesAfterSortingInUtils.add(count,addAry[0]+":"+addAry[1]);
-                                break;
-                            }else{
-                                Log.i("Log", "今回セットされた時間の方が分がちいさいのでここに");
-                                //とりあえず今回セットしたのを消す
-                                alarmSetTimesAfterSortingInUtils.remove(alarmSetTimesAfterSortingInUtils.size()-1);
-                                //で、追加
-                                alarmSetTimesAfterSortingInUtils.add(count,addAry[0]+":"+addAry[1]);
-                                break;
-                            }
-                        }
-
-                        //比較対象の時間と0番目の時間を比較し、0番目のほうが小さければ素通り、大きければ分の比較
-                        if (Integer.parseInt(now[0]) <= Integer.parseInt(addAry[0])) {
-                            Log.i("Log", "今回セットされた時間の方が時がでかいので分を比較します");
-                            if (Integer.parseInt(now[1]) < Integer.parseInt(addAry[1])) {
-                                Log.i("Log", "今回セットされた時間の方が分がでかいです");
-                                //とりあえず今回セットしたのを消す
-                                alarmSetTimesAfterSortingInUtils.remove(alarmSetTimesAfterSortingInUtils.size()-1);
-                                //で、追加
-                                alarmSetTimesAfterSortingInUtils.add(count,addAry[0]+":"+addAry[1]);
-                                break;
-                            }else{
-                                Log.i("Log", "今回セットされた時間の方が分がちいさいのでここに");
-                                //とりあえず今回セットしたのを消す
-                                alarmSetTimesAfterSortingInUtils.remove(alarmSetTimesAfterSortingInUtils.size()-1);
-                                //で、追加
-                                alarmSetTimesAfterSortingInUtils.add(count,addAry[0]+":"+addAry[1]);
-                                break;
-                            }
-                        }
+                Log.i("ミリ秒に直したデータを並び替える", "for文2個目始まるよ");
+                for(long millisVesSetTime:millisVerSetTimes){
+                    Log.i("HEY", "今回セットした値→"+millisVerSetTimes.get(millisVerSetTimes.size()-1));
+                    Log.i("HEY", "比較する値→"+millisVesSetTime);
+                    if((millisVerSetTimes.get(millisVerSetTimes.size()-1))<millisVesSetTime){
+                        Log.i("今回セットした値と比較する値を比較した結果", "比較する値のほうがセットした値よりでかい");
+                        millisVerSetTimes.add(count,millisVerSetTimes.get(millisVerSetTimes.size()-1));
+                        millisVerSetTimes.remove(millisVerSetTimes.size()-1);
+                        break;
                     }
                     count++;
                 }
-                Log.i("Log", "for文おわり");
+                Log.i("ミリ秒に直したデータを並び替える", "for文2個目終わり");
 
-                for (String alarmSetTimeAfter : alarmSetTimesAfterSortingInUtils) {
-                    Log.i("Log", "このメソッドから返す値たち→"+alarmSetTimeAfter.toString());
+
+
+                Log.i("ミリ秒のデータを時間に戻す", "for文3個目始まるよ");
+                for(long millisVerSetTime:millisVerSetTimes){
+
+                    Calendar cal =Calendar.getInstance();
+                    cal.setTimeInMillis(millisVerSetTime);
+                    String setTime =cal.HOUR_OF_DAY+":"+cal.MINUTE;
+                    alarmSetTimesAfterSortingInUtils.add(setTime);
+                    Log.i("戻した時間",""+cal.getTime());
+                    //alarmSetTimesAfterSortingInUtils.add();
                 }
-                */
+                Log.i("ミリ秒のデータを時間に戻した", "for文3個目終わり");
+
+                //めいん--------------------------------------------------------------------------------------------------------------------------------
                 return alarmSetTimesAfterSortingInUtils;
         }
     }
+    */
 
     //ストップウォッチの状態を預かる
     public static void stopWatchEnabledBank(String stopWatchText,
