@@ -25,16 +25,13 @@ public class AlarmDialogFragment extends DialogFragment {
     private boolean Repeat = false;
     private Calendar setTime;
     private List<Calendar> setTimeList = new ArrayList<Calendar>();
+    private List<Calendar> setTimeListAfterSorting = new ArrayList<Calendar>();
+    private List<String> alarmSetTimeListString = new ArrayList<String>();
 
     private TimePicker alarmTimePicker;
     private Switch alarmRepeatSwitch;
     private CheckBox sunCheck,monCheck,tueCheck,wedCheck,thuCheck,friCheck,satCheck;
     private ListView alarmSetList;
-
-    private List<String> alarmSetTimeListString = new ArrayList<String>();
-
-
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -89,26 +86,14 @@ public class AlarmDialogFragment extends DialogFragment {
         }else{//繰り返しがOFFならsetTimeをアラームマネージャに渡す
             new AlarmManagerMine(getActivity()).noRepertAddAlarm(setTime.getTimeInMillis());
         };
-
-        Log.i("セットされた時間","→"+setTime.getTime()+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
-        //setTimeをListに格納
+        //setTimeをListに格納し,並び替えてカレンダーを表示用文字列配列し,右カラムにセットする
         setTimeList.add(setTime);
-
-        //Listを並び替え
-        setTimeList = Utils.sortAlarmSetList(setTimeList);
-
-        for(Calendar setTime:setTimeList){
-
+        setTimeListAfterSorting = Utils.sortAlarmSetList(setTimeList);
+        for(Calendar setTime:setTimeListAfterSorting){
             Log.i("さてならびかえました","→"+setTime.getTime());
-
         }
-
-
-        //並び替えたカレンダーを表示用文字列配列にする
-        alarmSetTimeListString = Utils.calendarChangeString(setTimeList);
-
-        //表示用文字列配列を右カラムにセットする
+        //ここ
+        alarmSetTimeListString = Utils.calendarChangeString(setTimeListAfterSorting);
         AlarmSetListAdapter asla = new AlarmSetListAdapter(getActivity(),alarmSetTimeListString);
         alarmSetList.setAdapter(asla);
     }

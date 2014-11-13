@@ -56,7 +56,7 @@ public class Utils {
                 }
                 //次に作業用カレンダーリストを並び替え
                 for(Calendar cal:calList){
-                    //同じものがあり、自分自身との比較じゃない時、ついかしたやつは消す
+                    //同じものがあり、自分自身との比較じゃない時、追加したやつは消す
                     if(
                        calList.get(calList.size()-1).getTime().toString().equals(cal.getTime().toString())
                        &&
@@ -81,6 +81,8 @@ public class Utils {
     //カレンダー型の配列を、時と分のみの文字列型の配列に変換する
     public static List<String> calendarChangeString(List<Calendar> setTimeListAfterSorting){
         List<String> alarmSetTimeListString = new ArrayList<String>();
+
+        //
 
 
         //とりあえず
