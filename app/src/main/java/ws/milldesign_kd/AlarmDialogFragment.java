@@ -25,7 +25,6 @@ public class AlarmDialogFragment extends DialogFragment {
     private boolean Repeat = false;
     private Calendar setTime;
     private List<Calendar> setTimeList = new ArrayList<Calendar>();
-    private List<Calendar> setTimeListAfterSorting = new ArrayList<Calendar>();
     private List<String> alarmSetTimeListString = new ArrayList<String>();
 
     private TimePicker alarmTimePicker;
@@ -86,14 +85,10 @@ public class AlarmDialogFragment extends DialogFragment {
         }else{//繰り返しがOFFならsetTimeをアラームマネージャに渡す
             new AlarmManagerMine(getActivity()).noRepertAddAlarm(setTime.getTimeInMillis());
         };
-        //setTimeをListに格納し,並び替えてカレンダーを表示用文字列配列し,右カラムにセットする
+        //setTimeをListに格納し並び替えて文字列にしてListViewのアダプタにセットする
         setTimeList.add(setTime);
-        setTimeListAfterSorting = Utils.sortAlarmSetList(setTimeList);
-        for(Calendar setTime:setTimeListAfterSorting){
-            Log.i("さてならびかえました","→"+setTime.getTime());
-        }
-        //ここ
-        alarmSetTimeListString = Utils.calendarChangeString(setTimeListAfterSorting);
+        setTimeList = Utils.sortAlarmSetList(setTimeList);
+        alarmSetTimeListString = Utils.calendarChangeString(setTimeList);
         AlarmSetListAdapter asla = new AlarmSetListAdapter(getActivity(),alarmSetTimeListString);
         alarmSetList.setAdapter(asla);
     }

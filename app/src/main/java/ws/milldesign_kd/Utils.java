@@ -1,12 +1,9 @@
 package ws.milldesign_kd;
 
-import ws.milldesign_kd.Constants;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -14,9 +11,6 @@ import java.util.List;
 public class Utils {
 
     private static final String TAG = Utils.class.getSimpleName();
-
-    public static List<String> alarmSetTimesAfterSortingInUtils;
-
     public static String stopWatchTextCurrent;
     public static boolean startStopWatchButtonEnabled,stopStopWatchButtonEnabled,resetStopWatchButtonEnabled,rapStopWatchButtonEnabled = false;
     public static List<String> rapTimeCurrent = new ArrayList<String>();
@@ -48,6 +42,7 @@ public class Utils {
                 Log.i("Log", "要素が一つなので並び替えの必要無し,そのまま値を返します");
                 return setTimeList;
             default:
+                Log.i("Log", "要素が複数あります");
                 //まず引数としてもらったsetTimeListは複数の日にまたがっているので、時間と分の情報だけを抜き出して、カレンダーリストに追加(年月日と秒は適当な値に統一)
                 for(Calendar setTime:setTimeList){
                     Calendar cal = Calendar.getInstance();
@@ -65,9 +60,8 @@ public class Utils {
                             calList.remove(calList.size()-1);
                             break;
                     }
-                    //引っ張り出した要素が、今回Setした要素より大きかったら
+                    //引っ張り出した要素が、今回Setした要素より大きかったらSetした値より大きい要素のいた位置にSetした値を追加しもとのやつは消す
                     if(calList.get(calList.size()-1).getTimeInMillis()<cal.getTimeInMillis()){
-                        //Setした値より大きい要素のいた位置にSetした値を追加しもとのやつは消す
                         calList.add(count,calList.get(calList.size()-1));
                         calList.remove(calList.size()-1);
                         break;
@@ -79,102 +73,15 @@ public class Utils {
     }
 
     //カレンダー型の配列を、時と分のみの文字列型の配列に変換する
-    public static List<String> calendarChangeString(List<Calendar> setTimeListAfterSorting){
+    public static List<String> calendarChangeString(List<Calendar> setTimeList){
         List<String> alarmSetTimeListString = new ArrayList<String>();
 
-        //
-
-
-        //とりあえず
-        alarmSetTimeListString.add("test");
-
-
-
+       for(Calendar cal:setTimeList){
+           String s = ""+cal.getTime().getHours()+":"+cal.getTime().getMinutes();
+           alarmSetTimeListString.add(s);
+       }
         return alarmSetTimeListString;
     }
-
-
-    /*
-    //アラームセット画面の右側の領域に保存するリストを、時間順に並び替えるメソッド
-    public static List<String> sortingAlarmSetList(List<String> alarmSetTimesBeforeSorting) {
-        //まず新規でフィールドインスタンスを作る(以前の参照を無くすため)
-        alarmSetTimesAfterSortingInUtils = new ArrayList<String>();
-
-        //ソート前のデータの要素数を検証し、複数あれば並び替え処理を走らせる
-        switch (alarmSetTimesBeforeSorting.size()) {
-
-            case 1:
-                Log.i("Log", "要素が一つなので並び替えの必要無し,そのまま値を返します");
-                return alarmSetTimesBeforeSorting;
-            default://めいん--------------------------------------------------------------------------------------------------------------------------------
-
-                //ミリ秒に直した時間を入れる数値型の配列を用意
-                ArrayList<Long> millisVerSetTimes = new ArrayList<Long>();
-
-                //まず一度、受け取った全ての時間をUTC時刻のミリ秒にする
-                Log.i("既に複数ある時間データをミリ秒に直す", "for文1個目始まるよ");
-                for(String setTime:alarmSetTimesBeforeSorting){
-                    String[] setTimeDivide = setTime.split(":");
-
-                    Log.i("ちょいと","今回"+setTimeDivide[0]+":::"+setTimeDivide[1]);
-
-
-
-
-                    //とりあえず今の時間をとった後そこに2000年1月1日のセットした時間にカレンダーを設定
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(2000,Calendar.JANUARY,1,Integer.parseInt(setTimeDivide[0]),Integer.parseInt(setTimeDivide[1]),0);
-
-                    long millis = cal.getTimeInMillis()-Constants.MILLENNIUM;
-                    Calendar cal2 = Calendar.getInstance();
-                    cal2.setTimeInMillis(millis);
-
-                    //配列に追加
-                    millisVerSetTimes.add(millis);
-
-                    Log.i("カレンダーの値",""+cal.getTime());
-                    Log.i("今追加したミリ",""+millisVerSetTimes.get(millisVerSetTimes.size()-1));
-                    Log.i("ミリから戻したカレンダーの値",""+cal2.getTime());
-                }
-                Log.i("既に複数ある時間データをミリ秒に直した", "for文1個目終わり");
-
-
-
-
-                int count = 0;
-                Log.i("ミリ秒に直したデータを並び替える", "for文2個目始まるよ");
-                for(long millisVesSetTime:millisVerSetTimes){
-                    Log.i("HEY", "今回セットした値→"+millisVerSetTimes.get(millisVerSetTimes.size()-1));
-                    Log.i("HEY", "比較する値→"+millisVesSetTime);
-                    if((millisVerSetTimes.get(millisVerSetTimes.size()-1))<millisVesSetTime){
-                        Log.i("今回セットした値と比較する値を比較した結果", "比較する値のほうがセットした値よりでかい");
-                        millisVerSetTimes.add(count,millisVerSetTimes.get(millisVerSetTimes.size()-1));
-                        millisVerSetTimes.remove(millisVerSetTimes.size()-1);
-                        break;
-                    }
-                    count++;
-                }
-                Log.i("ミリ秒に直したデータを並び替える", "for文2個目終わり");
-
-
-
-                Log.i("ミリ秒のデータを時間に戻す", "for文3個目始まるよ");
-                for(long millisVerSetTime:millisVerSetTimes){
-
-                    Calendar cal =Calendar.getInstance();
-                    cal.setTimeInMillis(millisVerSetTime);
-                    String setTime =cal.HOUR_OF_DAY+":"+cal.MINUTE;
-                    alarmSetTimesAfterSortingInUtils.add(setTime);
-                    Log.i("戻した時間",""+cal.getTime());
-                    //alarmSetTimesAfterSortingInUtils.add();
-                }
-                Log.i("ミリ秒のデータを時間に戻した", "for文3個目終わり");
-
-                //めいん--------------------------------------------------------------------------------------------------------------------------------
-                return alarmSetTimesAfterSortingInUtils;
-        }
-    }
-    */
 
     //ストップウォッチの状態を預かる
     public static void stopWatchEnabledBank(String stopWatchText,
