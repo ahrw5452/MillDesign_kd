@@ -17,29 +17,22 @@ public class AlarmManagerMine {
     Context context;
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-
     //コンストラクタ:引数にアプリケーション全体の情報を持たせている
     public AlarmManagerMine(Context context){
         this.context = context;
         alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
     }
-
     //繰り返し有りでアラームをセットする場合
     public void repertAddAlarm(List<Calendar> setTimeRepeatList){
-
         Log.i("Log","ここは一旦ストップ");
-
         //今週のアラーム情報がListで渡されてくるので1週間周期で発動するようにアラームをセットする
-
         //String uniqueParam = Long.toString(setTime.getTimeInMillis()) ;
         //Intent intent = new Intent(context, AlarmServiceMine.class);
 
         //ユニークなインテントであることを示す(これをしないとセットする度アラームが上書きされてしまう)
-
         //intent.setType(uniqueParam);
         //PendingIntentを発行(IntentがユニークなのでPendingIntentもユニークとなる)
         //pendingIntent = PendingIntent.getService(context, -1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
 
         /*
         * アラームマネージャのset機能を解説。
@@ -64,7 +57,6 @@ public class AlarmManagerMine {
 
         //alarmManager.set(AlarmManager.RTC_WAKEUP,setTime.getTimeInMillis(),pendingIntent);
     }
-
     //繰り返し無しでアラームをセットする場合
     public void noRepertAddAlarm(Calendar setTime){
         String uniqueParam = setTime.getTime().toString();
@@ -74,7 +66,6 @@ public class AlarmManagerMine {
         pendingIntent = PendingIntent.getService(context, -1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.set(AlarmManager.RTC_WAKEUP,setTime.getTimeInMillis(),pendingIntent);
     }
-
     //セット済みアラームをキャンセル
     public void alarmCancel(Calendar setTime){
         String uniqueParam = setTime.getTime().toString();
@@ -84,5 +75,4 @@ public class AlarmManagerMine {
         pendingIntent = PendingIntent.getService(context, -1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent);
     }
-
 }

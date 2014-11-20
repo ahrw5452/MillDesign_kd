@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +68,14 @@ public class AlarmSetListAdapter extends BaseAdapter {
         }
         TextView alarmSetListText = (TextView)convertView.findViewById(R.id.alarmSetListText);
         alarmSetListText.setText(setTimeListString.get(count-1));
+
+        ToggleButton tb = (ToggleButton)convertView.findViewById(R.id.alarmOnOffToggleButton);
+        tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("Log","clickListenar");
+            }
+        });
         return convertView;
     }
 }

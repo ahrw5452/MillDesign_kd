@@ -75,7 +75,6 @@ public class AlarmDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {closeAlarm();}
         });
-
         return dialog;
     }
     //setAlarmボタン押下
@@ -99,6 +98,11 @@ public class AlarmDialogFragment extends DialogFragment {
         setTimeListString = Utils.calendarChangeString(setTimeList);
         AlarmSetListAdapter asla = new AlarmSetListAdapter(getActivity(),setTimeListString);
         alarmSetList.setAdapter(asla);
+
+
+
+
+
     }
     //closeAlarmボタン押下
     private void closeAlarm(){

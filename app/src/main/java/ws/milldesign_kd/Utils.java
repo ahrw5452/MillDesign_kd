@@ -15,7 +15,6 @@ public class Utils {
     public static String stopWatchTextCurrent;
     public static boolean startStopWatchButtonEnabled,stopStopWatchButtonEnabled,resetStopWatchButtonEnabled,rapStopWatchButtonEnabled = false;
     public static List<String> rapTimeCurrent = new ArrayList<String>();
-
     //アラームセット画面でセットされた時間と繰り返し曜日をListにして返す
     public static List<Calendar> repeatAlarmSetTime(int currentHour,int currentMinute,BitSet dayOfTheWeekChecked){
         List<Calendar> setTimeRepeatList = new ArrayList<Calendar>();
@@ -238,7 +237,6 @@ public class Utils {
         }
         return setTimeRepeatList;
     }
-
     //アラームセット画面でセットされた時間をUTC時刻にして返す(繰り返し無しの場合)
     public static Calendar noRepeatAlarmSetTime(int currentHour,int currentMinute){
         //Setボタンを押した瞬間の時刻をカレンダー型の変数に格納(2つ)
@@ -254,7 +252,6 @@ public class Utils {
         };
         return setTime;
     }
-
     //setTimeの履歴を時間順に並び替えて返す
     public static List<Calendar> sortAlarmSetList(List<Calendar> setTimeList){
 
@@ -293,7 +290,6 @@ public class Utils {
         }
         return calList;
     }
-
     //カレンダー型の配列を、時と分のみの文字列型の配列に変換する
     public static List<String> calendarChangeString(List<Calendar> setTimeList){
         List<String> alarmSetTimeListString = new ArrayList<String>();
@@ -304,7 +300,6 @@ public class Utils {
        }
         return alarmSetTimeListString;
     }
-
     //ストップウォッチの状態を預かる
     public static void stopWatchEnabledBank(String stopWatchText,
                                             boolean startStopWatchButton,
@@ -362,8 +357,7 @@ public class Utils {
             }
         }
     }
-
-    /*Viewの階層構造をダンプするスニペット*/
+    //Viewの階層構造をダンプするスニペット
     public static void dumpViewTree(View v, String padding){
         Log.d("だんぷ", padding + v.getClass().getName());
         if(v instanceof ViewGroup){
