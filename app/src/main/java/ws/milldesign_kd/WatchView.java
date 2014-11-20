@@ -19,13 +19,11 @@ public class WatchView extends FragmentActivity implements View.OnClickListener{
     private StopWatchDialogFragment swdf;
     public static Utils utils;
 
-    //初期化
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_view);
         utils = new Utils();
-
         //DrawerLatoutの設定
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -42,14 +40,16 @@ public class WatchView extends FragmentActivity implements View.OnClickListener{
                 R.string.drawer_open,
                 R.string.drawer_close){
             @Override
-            public void onDrawerClosed(View drawView){}//NavigationDrawer閉じた時
+            public void onDrawerClosed(View drawView){}
             @Override
-            public void onDrawerOpened(View drawView){}//NavigationDrawer開いた時
+            public void onDrawerOpened(View drawView){}
             @Override
-            public void onDrawerStateChanged(int newState) {}//NavigationDrawerの状態が変わった時
+            public void onDrawerStateChanged(int newState) {}
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);//これをトグル作成より前にやるとNG
-        findViewById(R.id.all_view).setOnClickListener(this);//どこを押してもリスナーが走る
+        //これをトグル作成より前にやるとNG
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        //どこを押してもリスナーが走る
+        findViewById(R.id.all_view).setOnClickListener(this);
     }
     //ActionBarに項目を作成
     @Override
@@ -74,7 +74,6 @@ public class WatchView extends FragmentActivity implements View.OnClickListener{
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         actionBar.hide();
-
         if(mDrawerToggle.onOptionsItemSelected(item)){
             findViewById(R.id.Calendar).setOnClickListener(this);
             findViewById(R.id.Date).setOnClickListener(this);
@@ -92,11 +91,7 @@ public class WatchView extends FragmentActivity implements View.OnClickListener{
             new AlarmDialogFragment().show(getFragmentManager(), "alarm");
             return true;
         }else if(item.getItemId()==3){
-            if(swdf==null){
-                swdf = (StopWatchDialogFragment)new StopWatchDialogFragment();
-            }else{
-
-            }
+            if(swdf==null){swdf = (StopWatchDialogFragment)new StopWatchDialogFragment();}
             swdf.show(getFragmentManager(), "stopWatch");
             return true;
         }
@@ -129,8 +124,4 @@ public class WatchView extends FragmentActivity implements View.OnClickListener{
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
-
-
-
 }

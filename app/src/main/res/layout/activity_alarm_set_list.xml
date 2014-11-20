@@ -30,7 +30,7 @@
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/toggleButton"
+        android:id="@+id/alarmOnOffToggleButton"
         android:background="#00000000"/>
 
 </LinearLayout>

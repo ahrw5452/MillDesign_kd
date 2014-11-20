@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,8 +16,231 @@ public class Utils {
     public static boolean startStopWatchButtonEnabled,stopStopWatchButtonEnabled,resetStopWatchButtonEnabled,rapStopWatchButtonEnabled = false;
     public static List<String> rapTimeCurrent = new ArrayList<String>();
 
-    //アラームセット画面でセットされた時間をUTC時刻にして返す
-    public static Calendar alarmSetTime(int currentHour,int currentMinute){
+    //アラームセット画面でセットされた時間と繰り返し曜日をListにして返す
+    public static List<Calendar> repeatAlarmSetTime(int currentHour,int currentMinute,BitSet dayOfTheWeekChecked){
+        List<Calendar> setTimeRepeatList = new ArrayList<Calendar>();
+
+        if(dayOfTheWeekChecked.get(0)){
+            Calendar setTime = Calendar.getInstance();
+            //このメソッドが走った曜日
+            switch (setTime.get(Calendar.DAY_OF_WEEK)){
+                case 1://日曜に日曜日をセットした場合は+-0日
+                    break;
+                case 2://月曜に日曜日をセットした場合は-1日
+                    setTime.add(Calendar.DAY_OF_MONTH, -1);
+                    break;
+                case 3://火曜に日曜日をセットした場合は-2日
+                    setTime.add(Calendar.DAY_OF_MONTH, -2);
+                    break;
+                case 4://水曜に日曜日をセットした場合は-3日
+                    setTime.add(Calendar.DAY_OF_MONTH, -3);
+                    break;
+                case 5://木曜に日曜日をセットした場合は-4日
+                    setTime.add(Calendar.DAY_OF_MONTH, -4);
+                    break;
+                case 6://金曜に日曜日をセットした場合は-5日
+                    setTime.add(Calendar.DAY_OF_MONTH, -5);
+                    break;
+                case 7://土曜に日曜日をセットした場合は-6日
+                    setTime.add(Calendar.DAY_OF_MONTH, -6);
+                    break;
+            }
+            setTime.set(Calendar.HOUR_OF_DAY, currentHour);
+            setTime.set(Calendar.MINUTE, currentMinute);
+            setTime.set(Calendar.SECOND, 0);
+            setTimeRepeatList.add(setTime);
+        }
+
+        if(dayOfTheWeekChecked.get(1)){
+            Calendar setTime = Calendar.getInstance();
+            //このメソッドが走った曜日
+            switch (setTime.get(Calendar.DAY_OF_WEEK)){
+                case 1://日曜に月曜日をセットした場合は+1日
+                    setTime.add(Calendar.DAY_OF_MONTH, +1);
+                    break;
+                case 2://月曜に月曜日をセットした場合は+-0日
+                    break;
+                case 3://火曜に月曜日をセットした場合は-1日
+                    setTime.add(Calendar.DAY_OF_MONTH, -1);
+                    break;
+                case 4://水曜に月曜日をセットした場合は-2日
+                    setTime.add(Calendar.DAY_OF_MONTH, -2);
+                    break;
+                case 5://木曜に月曜日をセットした場合は-3日
+                    setTime.add(Calendar.DAY_OF_MONTH, -3);
+                    break;
+                case 6://金曜に月曜日をセットした場合は-4日
+                    setTime.add(Calendar.DAY_OF_MONTH, -4);
+                    break;
+                case 7://土曜に月曜日をセットした場合は-5日
+                    setTime.add(Calendar.DAY_OF_MONTH, -5);
+                    break;
+            }
+            setTime.set(Calendar.HOUR_OF_DAY, currentHour);
+            setTime.set(Calendar.MINUTE, currentMinute);
+            setTime.set(Calendar.SECOND, 0);
+            setTimeRepeatList.add(setTime);
+        }
+
+        if(dayOfTheWeekChecked.get(2)){
+            Calendar setTime = Calendar.getInstance();
+            //このメソッドが走った曜日
+            switch (setTime.get(Calendar.DAY_OF_WEEK)){
+                case 1://日曜に火曜日をセットした場合は+2日
+                    setTime.add(Calendar.DAY_OF_MONTH, +2);
+                    break;
+                case 2://月曜に火曜日をセットした場合は+1日
+                    setTime.add(Calendar.DAY_OF_MONTH, +1);
+                    break;
+                case 3://火曜に火曜日をセットした場合は+-0日
+                    break;
+                case 4://水曜に火曜日をセットした場合は-1日
+                    setTime.add(Calendar.DAY_OF_MONTH, -1);
+                    break;
+                case 5://木曜に火曜日をセットした場合は-2日
+                    setTime.add(Calendar.DAY_OF_MONTH, -2);
+                    break;
+                case 6://金曜に火曜日をセットした場合は-3日
+                    setTime.add(Calendar.DAY_OF_MONTH, -3);
+                    break;
+                case 7://土曜に火曜日をセットした場合は-4日
+                    setTime.add(Calendar.DAY_OF_MONTH, -4);
+                    break;
+            }
+            setTime.set(Calendar.HOUR_OF_DAY, currentHour);
+            setTime.set(Calendar.MINUTE, currentMinute);
+            setTime.set(Calendar.SECOND, 0);
+            setTimeRepeatList.add(setTime);
+        }
+
+        if(dayOfTheWeekChecked.get(3)){
+            Calendar setTime = Calendar.getInstance();
+            //このメソッドが走った曜日
+            switch (setTime.get(Calendar.DAY_OF_WEEK)){
+                case 1://日曜に水曜日をセットした場合は+3日
+                    setTime.add(Calendar.DAY_OF_MONTH, +3);
+                    break;
+                case 2://月曜に水曜日をセットした場合は+2日
+                    setTime.add(Calendar.DAY_OF_MONTH, +2);
+                    break;
+                case 3://火曜に水曜日をセットした場合は+1日
+                    setTime.add(Calendar.DAY_OF_MONTH, +1);
+                    break;
+                case 4://水曜に水曜日をセットした場合は+-0日
+                    break;
+                case 5://木曜に水曜日をセットした場合は-1日
+                    setTime.add(Calendar.DAY_OF_MONTH, -1);
+                    break;
+                case 6://金曜に水曜日をセットした場合は-2日
+                    setTime.add(Calendar.DAY_OF_MONTH, -2);
+                    break;
+                case 7://土曜に水曜日をセットした場合は-3日
+                    setTime.add(Calendar.DAY_OF_MONTH, -3);
+                    break;
+            }
+            setTime.set(Calendar.HOUR_OF_DAY, currentHour);
+            setTime.set(Calendar.MINUTE, currentMinute);
+            setTime.set(Calendar.SECOND, 0);
+            setTimeRepeatList.add(setTime);
+        }
+
+        if(dayOfTheWeekChecked.get(4)){
+            Calendar setTime = Calendar.getInstance();
+            //このメソッドが走った曜日
+            switch (setTime.get(Calendar.DAY_OF_WEEK)){
+                case 1://日曜に木曜日をセットした場合は+4日
+                    setTime.add(Calendar.DAY_OF_MONTH, +4);
+                    break;
+                case 2://月曜に木曜日をセットした場合は+3日
+                    setTime.add(Calendar.DAY_OF_MONTH, +3);
+                    break;
+                case 3://火曜に木曜日をセットした場合は+2日
+                    setTime.add(Calendar.DAY_OF_MONTH, +2);
+                    break;
+                case 4://水曜に木曜日をセットした場合は+1日
+                    setTime.add(Calendar.DAY_OF_MONTH, +1);
+                    break;
+                case 5://木曜に木曜日をセットした場合は+-0日
+                    break;
+                case 6://金曜に木曜日をセットした場合は-1日
+                    setTime.add(Calendar.DAY_OF_MONTH, -1);
+                    break;
+                case 7://土曜に木曜日をセットした場合は-2日
+                    setTime.add(Calendar.DAY_OF_MONTH, -2);
+                    break;
+            }
+            setTime.set(Calendar.HOUR_OF_DAY, currentHour);
+            setTime.set(Calendar.MINUTE, currentMinute);
+            setTime.set(Calendar.SECOND, 0);
+            setTimeRepeatList.add(setTime);
+        }
+
+        if(dayOfTheWeekChecked.get(5)){
+            Calendar setTime = Calendar.getInstance();
+            //このメソッドが走った曜日
+            switch (setTime.get(Calendar.DAY_OF_WEEK)){
+                case 1://日曜に金曜日をセットした場合は+5日
+                    setTime.add(Calendar.DAY_OF_MONTH, +5);
+                    break;
+                case 2://月曜に金曜日をセットした場合は+4日
+                    setTime.add(Calendar.DAY_OF_MONTH, +4);
+                    break;
+                case 3://火曜に金曜日をセットした場合は+3日
+                    setTime.add(Calendar.DAY_OF_MONTH, +3);
+                    break;
+                case 4://水曜に金曜日をセットした場合は+2日
+                    setTime.add(Calendar.DAY_OF_MONTH, +2);
+                    break;
+                case 5://木曜に金曜日をセットした場合は+1日
+                    setTime.add(Calendar.DAY_OF_MONTH, +1);
+                    break;
+                case 6://金曜に金曜日をセットした場合は+-0日
+                    break;
+                case 7://土曜に金曜日をセットした場合は-1日
+                    setTime.add(Calendar.DAY_OF_MONTH, -1);
+                    break;
+            }
+            setTime.set(Calendar.HOUR_OF_DAY, currentHour);
+            setTime.set(Calendar.MINUTE, currentMinute);
+            setTime.set(Calendar.SECOND, 0);
+            setTimeRepeatList.add(setTime);
+        }
+
+        if(dayOfTheWeekChecked.get(6)){
+            Calendar setTime = Calendar.getInstance();
+            //このメソッドが走った曜日
+            switch (setTime.get(Calendar.DAY_OF_WEEK)){
+                case 1://日曜に土曜日をセットした場合は+6日
+                    setTime.add(Calendar.DAY_OF_MONTH, +6);
+                    break;
+                case 2://月曜に土曜日をセットした場合は+5日
+                    setTime.add(Calendar.DAY_OF_MONTH, +5);
+                    break;
+                case 3://火曜に土曜日をセットした場合は+4日
+                    setTime.add(Calendar.DAY_OF_MONTH, +4);
+                    break;
+                case 4://水曜に土曜日をセットした場合は+3日
+                    setTime.add(Calendar.DAY_OF_MONTH, +3);
+                    break;
+                case 5://木曜に土曜日をセットした場合は+2日
+                    setTime.add(Calendar.DAY_OF_MONTH, +2);
+                    break;
+                case 6://金曜に土曜日をセットした場合は+1日
+                    setTime.add(Calendar.DAY_OF_MONTH, +1);
+                    break;
+                case 7://土曜に土曜日をセットした場合は+-0日
+                    break;
+            }
+            setTime.set(Calendar.HOUR_OF_DAY, currentHour);
+            setTime.set(Calendar.MINUTE, currentMinute);
+            setTime.set(Calendar.SECOND, 0);
+            setTimeRepeatList.add(setTime);
+        }
+        return setTimeRepeatList;
+    }
+
+    //アラームセット画面でセットされた時間をUTC時刻にして返す(繰り返し無しの場合)
+    public static Calendar noRepeatAlarmSetTime(int currentHour,int currentMinute){
         //Setボタンを押した瞬間の時刻をカレンダー型の変数に格納(2つ)
         Calendar currentTime = Calendar.getInstance();
         Calendar setTime = Calendar.getInstance();
@@ -39,7 +263,6 @@ public class Utils {
 
         switch(setTimeList.size()){
             case 1:
-                Log.i("Log", "要素が一つなので並び替えの必要無し,そのまま値を返します");
                 return setTimeList;
             default:
                 //まず引数としてもらったsetTimeListは複数の日にまたがっているので、時間と分の情報だけを抜き出して、カレンダーリストに追加(年月日と秒は適当な値に統一)
