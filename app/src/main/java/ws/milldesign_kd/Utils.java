@@ -42,7 +42,6 @@ public class Utils {
                 Log.i("Log", "要素が一つなので並び替えの必要無し,そのまま値を返します");
                 return setTimeList;
             default:
-                Log.i("Log", "要素が複数あります");
                 //まず引数としてもらったsetTimeListは複数の日にまたがっているので、時間と分の情報だけを抜き出して、カレンダーリストに追加(年月日と秒は適当な値に統一)
                 for(Calendar setTime:setTimeList){
                     Calendar cal = Calendar.getInstance();

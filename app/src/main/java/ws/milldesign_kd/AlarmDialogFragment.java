@@ -25,7 +25,7 @@ public class AlarmDialogFragment extends DialogFragment {
     private boolean Repeat = false;
     private Calendar setTime;
     private List<Calendar> setTimeList = new ArrayList<Calendar>();
-    private List<String> alarmSetTimeListString = new ArrayList<String>();
+    private List<String> setTimeListString = new ArrayList<String>();
 
     private TimePicker alarmTimePicker;
     private Switch alarmRepeatSwitch;
@@ -88,8 +88,9 @@ public class AlarmDialogFragment extends DialogFragment {
         //setTimeをListに格納し並び替えて文字列にしてListViewのアダプタにセットする
         setTimeList.add(setTime);
         setTimeList = Utils.sortAlarmSetList(setTimeList);
-        alarmSetTimeListString = Utils.calendarChangeString(setTimeList);
-        AlarmSetListAdapter asla = new AlarmSetListAdapter(getActivity(),alarmSetTimeListString);
+        setTimeListString = Utils.calendarChangeString(setTimeList);
+        AlarmSetListAdapter asla = new AlarmSetListAdapter(getActivity(),setTimeListString);
+
         alarmSetList.setAdapter(asla);
     }
 

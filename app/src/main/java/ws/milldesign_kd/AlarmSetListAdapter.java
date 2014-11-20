@@ -1,22 +1,24 @@
 package ws.milldesign_kd;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmSetListAdapter extends BaseAdapter {
     private Context context;
-    private List<String> alarmSetTimes = new ArrayList<String>();
+    private List<String> setTimeListString = new ArrayList<String>();
+
+    private int count = 0;
 
     /*
-    * アラームがセットされると同時に、セットされたタイムピッカーの値がリストで渡されてくる。
-    * 過去にセットされたものも全てリストに入っているので。
-    * 時間順に並び替えてAdapter作る
+    * アラームがセットされると同時に、セットされたタイムピッカーの値が過去のものも含め整列したリストで渡されてくる。
     *
     * このクラスが作られ、ListViewにSETされる時に、getViewが走る
     * このgetViewの戻り値であるViewがListViewに羅列される
@@ -24,21 +26,21 @@ public class AlarmSetListAdapter extends BaseAdapter {
     * ListViewにSetされるViewの数は、getCountの戻り値の数となる
     */
 
-    public AlarmSetListAdapter(Context context,List<String> alarmSetTimes) {
+    public AlarmSetListAdapter(Context context,List<String> setTimeListString) {
         super();
         this.context = context;
-        this.alarmSetTimes = alarmSetTimes;
+        this.setTimeListString = setTimeListString;
     }
 
     //リストを作る数
     @Override
     public int getCount() {
-        return alarmSetTimes.size();
+        return setTimeListString.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return alarmSetTimes.get(position);
+        return setTimeListString.get(position);
     }
 
     @Override
@@ -48,23 +50,21 @@ public class AlarmSetListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        //convertViewは前回使用したViewオブジェクト。前回が無い場合はnull
         if (convertView == null) {
-
+            //インフレータを使用してViewオブジェクトを取得
             LayoutInflater inflater = LayoutInflater.from(context);
-
             convertView = inflater.inflate(R.layout.activity_alarm_set_list,null);
-
-            TextView alarmSetListText = (TextView)convertView.findViewById(R.id.alarmSetListText);
-            alarmSetListText.setText(alarmSetTimes.get(0));
-
-        }else{
+            /*
+            * getView自体が複数回呼ばれるが
+            * このifに入る回数はリストの値の数と合致しているようなので
+            * countはここで上げる
+            * */
+            count++;
         }
-
-        for(String alarmSetTime:alarmSetTimes){
-
-            return convertView;
-
-        }
-        return null;
+        TextView alarmSetListText = (TextView)convertView.findViewById(R.id.alarmSetListText);
+        alarmSetListText.setText(setTimeListString.get(count-1));
+        return convertView;
     }
 }
