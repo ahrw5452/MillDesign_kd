@@ -1,18 +1,26 @@
 package ws.milldesign_kd;
 
 import android.app.ActionBar;
+import android.content.ContentValues;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 public class WatchView extends FragmentActivity implements View.OnClickListener{
+
+    //このアプリケーションのDB
+    SQLiteDatabase db;
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar actionBar;
@@ -24,6 +32,12 @@ public class WatchView extends FragmentActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_view);
         utils = new Utils();
+
+        // SampleSQLiteOpenHelperのインスタンス生成
+        SQLiteOpenHelperMine openHelper = new SQLiteOpenHelperMine(this);
+        // getWritableDatabase()を使用してデータベースを開き、SQLiteDatabaseのインスタンス取得
+        db = openHelper.getWritableDatabase();
+
         //DrawerLatoutの設定
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -82,7 +96,37 @@ public class WatchView extends FragmentActivity implements View.OnClickListener{
             findViewById(R.id.Humidity).setOnClickListener(this);
             return true;
         }else if(item.getItemId()==0){
-            Toast.makeText(this,"設定ダイアログが開く",Toast.LENGTH_LONG);
+            Toast.makeText(this,"テスト的にDBをいじる",Toast.LENGTH_LONG);
+
+
+
+            // ContentValuesのインスタンスにデータを格納
+            ContentValues values = new ContentValues();
+            ContentValues values2 = new ContentValues();
+            ContentValues values3 = new ContentValues();
+            values.put("data", 123);
+            values2.put("data", 456);
+            values3.put("data", 789);
+            // データの挿入
+            db.insert("kd_table", null, values);
+            db.insert("kd_table", null, values2);
+            db.insert("kd_table", null, values3);
+
+            // テーブルからデータを検索
+            Cursor cursor = db.query(
+                    "kd_table", new String[] {"_id", "data"},
+                    null, null, null, null, "_id DESC");
+            // 参照先を一番始めに
+            boolean isEof = cursor.moveToFirst();
+            // データを取得していく
+            while(isEof) {
+                Log.d("Log", "" + cursor.getInt(cursor.getColumnIndex("data")));
+                isEof = cursor.moveToNext();
+            }
+            // 忘れずに閉じる
+            cursor.close();
+
+
             return true;
         }else if(item.getItemId()==1){
             new TimerDialogFragment().show(getFragmentManager(), "timer");

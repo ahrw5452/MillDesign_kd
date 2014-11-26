@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -18,8 +19,6 @@ public class AlarmSetListAdapter extends BaseAdapter {
     private Context context;
     private List<String> setTimeListString = new ArrayList<String>();
 
-    private int count = 0;
-
     /*
     * アラームがセットされると同時に、セットされたタイムピッカーの値が過去のものも含め整列したリストで渡されてくる。
     *
@@ -28,13 +27,11 @@ public class AlarmSetListAdapter extends BaseAdapter {
     *
     * ListViewにSetされるViewの数は、getCountの戻り値の数となる
     */
-
     public AlarmSetListAdapter(Context context,List<String> setTimeListString) {
         super();
         this.context = context;
         this.setTimeListString = setTimeListString;
     }
-
     //リストを作る数
     @Override
     public int getCount() {
@@ -52,28 +49,20 @@ public class AlarmSetListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        //convertViewは前回使用したViewオブジェクト。前回が無い場合はnull
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        //引数のconvertViewは前回使用したViewオブジェクト。前回が無い場合はnull
         if (convertView == null) {
-            //インフレータを使用してViewオブジェクトを取得
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.activity_alarm_set_list,null);
-            /*
-            * getView自体が複数回呼ばれるが
-            * このifに入る回数はリストの値の数と合致しているようなので
-            * countはここで上げる
-            * */
-            count++;
         }
-        TextView alarmSetListText = (TextView)convertView.findViewById(R.id.alarmSetListText);
-        alarmSetListText.setText(setTimeListString.get(count-1));
+        //スクロールするたびにgetViewは走っている。描画されたpositionの数値の位置にいるリストアイテムを取得しセットする
+        ((TextView)convertView.findViewById(R.id.alarmSetListText)).setText(setTimeListString.get(position));
 
-        ToggleButton tb = (ToggleButton)convertView.findViewById(R.id.alarmOnOffToggleButton);
-        tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        final ToggleButton alarmOnOffToggleButton = (ToggleButton)convertView.findViewById(R.id.alarmOnOffToggleButton);
+        alarmOnOffToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.i("Log","clickListenar");
+                Log.i("Log","clickListenar!!ポジションは→"+position+"状態は"+isChecked);
             }
         });
         return convertView;
