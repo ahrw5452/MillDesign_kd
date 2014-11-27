@@ -42,18 +42,23 @@ public class AlarmDialogFragment extends DialogFragment {
     private CheckBox sunCheck,monCheck,tueCheck,wedCheck,thuCheck,friCheck,satCheck;
     private ListView alarmSetList;
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-
-
-
-
         final Dialog dialog = new Dialog(getActivity());
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         dialog.setContentView(R.layout.activity_alarm_mode);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        /*
+        * アラーム画面を開くと同時にDBを開く
+        * SampleSQLiteOpenHelperのインスタンス生成後、
+        * getWritableDatabase()を使用してデータベースを開きSQLiteDatabaseのインスタンス取得。
+        * さらにDB操作クラスのインスタンスを取得
+        * */
+        SQLiteOpenHelperMine openHelper = new SQLiteOpenHelperMine(getActivity());
+        final SQLiteDatabase db = openHelper.getWritableDatabase();
+        final DataBaseOperation dbo = new DataBaseOperation();
         //Viewの各ウィジェットを取得
         alarmTimePicker = (TimePicker)dialog.findViewById(R.id.alarmTimePicker);
         alarmRepeatSwitch = (Switch)dialog.findViewById(R.id.alarmRepeatSwitch);
@@ -82,6 +87,47 @@ public class AlarmDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {closeAlarm();}
         });
+//--------------------------------------------------------------------------------------------------------------------------------------
+        //挿入ボタンのリスナ
+        dialog.findViewById(R.id.insertAlarmButton).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("Log","挿入");
+                ContentValues val = new ContentValues();
+                val.put( "hour","hour");
+                val.put( "minutes","minutes");
+                val.put( "repert",0);
+                val.put( "weekday","weekday");
+                val.put( "onoff",1);
+                //1件追加
+                db.insert( "alarm_table", null,val);
+            }
+        });
+        //検索ボタンのリスナ
+        dialog.findViewById(R.id.searchAlarmButton).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("Log","検索結果は→"+dbo.searchAlarm(db)+"です");
+            }
+        });
+        //テーブル検索ボタンのリスナ
+        dialog.findViewById(R.id.searchTableAlarmButton).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Cursor cursor = db.rawQuery("SELECT * FROM sqlite_master WHERE type='table' ", null);
+                Log.i("テーブル個数",""+cursor.getCount());
+                Log.i("カラムの名称→",""+cursor.getColumnNames());
+            }
+        });
+        //データ全削除ボタンのリスナ
+        dialog.findViewById(R.id.allDeleteAlarmButton).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("Log","削除件数→"+dbo.delAlarm(db)+"件");
+
+            }
+        });
+//--------------------------------------------------------------------------------------------------------------------------------------
         return dialog;
     }
     //setAlarmボタン押下
@@ -108,9 +154,8 @@ public class AlarmDialogFragment extends DialogFragment {
     }
     //closeAlarmボタン押下
     private void closeAlarm(){
-
         //new AlarmManagerMine(getActivity()).alarmCancel(setTime);
-        //super.onDismiss(getDialog());
+        super.onDismiss(getDialog());
     }
     //繰り返しスイッチの状態
     private void checkBoxSetEnabled(boolean Enabled){
